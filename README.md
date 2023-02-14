@@ -3,7 +3,7 @@
 ## Teamwork Contract
     uploaded soon....
 
-Authors/Contributors:
+## Authors/Contributors:
 Miles Brodie
 Ammar Bagharib
 Sammy Gulipalli
