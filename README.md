@@ -5,10 +5,10 @@
 
 ## Authors/Contributors:
 
-Miles Brodie
-Ammar Bagharib
-Sammy Gulipalli
-Sara Uppal
+Miles Brodie  
+Ammar Bagharib  
+Sammy Gulipalli   
+Sara Uppal  
 
 ## Summary of Project
     uploaded soon....
