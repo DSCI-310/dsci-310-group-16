@@ -1,4 +1,4 @@
-# dsci-310-group-16
+# DSCI310 Group 16
 
 ## Teamwork Contract
     uploaded soon....
