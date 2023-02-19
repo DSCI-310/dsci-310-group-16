@@ -17,4 +17,20 @@ Sara Uppal
     uploaded soon....
     
 ## Dependencies required
-    uploaded soon.....
+| Package Name | Version |
+| ------------ | ------- |
+| R            | 4.1.3   |
+| tidyverse    | 1.3.0   |
+| tidymodels   | 0.1.1   |
+| GGally       | 2.1.2   |
+| remotes      | LATEST  |
+| repr         | LATEST  |
+| rvest        | LATEST  |
+| stringr      | LATEST  |
+| DBI          | LATEST  |
+| dbplyr       | LATEST  |
+   
+   see [Dockerfile](Dockerfile)
+   
+
+
