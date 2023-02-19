@@ -48,10 +48,10 @@ $ git clone https://github.com/mjbrodie/dsci-310-group-16
 ```
 To keep your fork up to date with changes in this repo, you can use the fetch upstream button on GitHub. More details regarding fork syncing, e.g., syncing from your terminal instead of directly on Github can be found [**here**](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork). 
 
-Then, using Docker, follow these steps to reproduce this analysis:
+Then, fire up your Terminal on your local machine, and using Docker, follow these steps to reproduce this analysis:
 
 **1. Pull down docker image**
-
+Type in the following command in Terminal.
 ```
 docker pull *(name of our docker project:latest)*
 ```
