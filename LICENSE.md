@@ -1,4 +1,4 @@
-# Licensing
+# MIT License
 
 ### Copyright 2023 UBC DSCI-310-Group-16
 
