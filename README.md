@@ -10,8 +10,8 @@
     (add in summarised analysis)
     
 ## Important Project Rules and Regulations
-*[Project Contributing Guide](https://github.com/mjbrodie/dsci-310-group-16/blob/main/CONTRIBUTING.md)
-*[Code of Conduct](https://github.com/mjbrodie/dsci-310-group-16/blob/main/CODE_OF_CONDUCT.md)
+- [Project Contributing Guide](https://github.com/mjbrodie/dsci-310-group-16/blob/main/CONTRIBUTING.md)
+- [Code of Conduct](https://github.com/mjbrodie/dsci-310-group-16/blob/main/CODE_OF_CONDUCT.md)
 
 ## Detailed Analysis
 The detailed analysis can be found [**here**](https://github.com/mjbrodie/dsci-310-group-16/blob/main/Analysis/Predicting_Win_Rate_of_Tennis_Players.ipynb)
