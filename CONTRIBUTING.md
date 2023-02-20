@@ -65,7 +65,7 @@ You will get feedback in 7 working days in the PR discussion if anything needs t
 We hope your PR will be answered in a timely manner and your contribution will help others in the future. Should there be a lack of a timely response, please send an email to ammarb99@student.ubc.ca
 
 ## Participated Contributors
-This Project was mainly conducted by Miles Brodie, Ammar Bagharib and Sammy Gulip. We will also list other contributors' name here. Thank you so much for reading this.
+This Project was mainly conducted by Miles Brodie, Ammar Bagharib and Sammy Gulip. We will also list other contributors' name here. We would like to acknowledge the other contributors who helped in the original data anaylsis of this project but are not participating in the current project; Ali Tariq, Simon Liang, and Luca Festa-Bianchet.  Thank you so much for reading this.
 
 
 
