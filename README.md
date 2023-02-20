@@ -7,8 +7,9 @@
 * Sammy Gulipalli   
 
 ## Summary of Project
-    (add in intro and motivations behind project)
-    (add in summarised analysis)
+    The goal of this project is to predict the win rate of tennis players using machine learning techniques. The motivation behind this project is to explore the 
+    relationship between various player statistics and their win rate, and to develop a model that can accurately predict a player's win rate based on these 
+    statistics. The analysis has been carried out in R using various packages from the tidyverse and tidymodels ecosystems.
     
 ## Important Project Rules and Regulations
 - [Project Contributing Guide](https://github.com/mjbrodie/dsci-310-group-16/blob/main/CONTRIBUTING.md)
