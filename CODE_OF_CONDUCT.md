@@ -1,24 +1,20 @@
 # Code of Conduct
 
-We want to provide an inclusive environment where contributors feel welcome and supported. The authors of this project are diverse not just in ethnic background, but discpline background as well. Not every author may have a strong Data Science or coding background, but what is expected of all contributors is the ability to collaborate openly and respectfully. 
+We want to create a safe and inclusive environment where contributors feel welcome and supported. As such, we expect all contributors to collaborate openly and respectfully, regardless of their level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, religion, or nationality.
 
-We are committed to making participation in this project a harassment-free experience for everyone, regardless of level of experience, gender, gender identity and expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, religion, or nationality.
+The following behaviors are considered unacceptable and will not be tolerated:
 
-Examples of unacceptable behavior by participants include:
+The use of sexualized language or imagery
+Personal attacks, insults, or derogatory comments
+Trolling, bullying, or other forms of harassment
+Publishing other people's private information without explicit permission
+Other unethical or unprofessional conduct
+Project maintainers have the right and responsibility to remove, edit, or reject any contributions that do not align with this Code of Conduct. They may also temporarily or permanently ban any contributor who violates this Code of Conduct or exhibits inappropriate, threatening, offensive, or harmful behavior.
 
-* The use of sexualized language or imagery
-* Personal attacks
-* Trolling or insulting/derogatory comments
-* Public or private harassment
-* Publishing other’s private information, such as physical or electronic addresses, without explicit permission
-* Other unethical or unprofessional conduct
-* Project maintainers have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other
-contributions that are not aligned to this Code of Conduct, or to ban temporarily or permanently any contributor for other behaviors that they deem inappropriate, threatening, offensive, or harmful.
-
-By adopting this Code of Conduct, project maintainers commit themselves to fairly and consistently applying these principles to every aspect of managing this project. Project maintainers who do not follow or enforce the Code of Conduct may be permanently removed from the project team.
+By adopting this Code of Conduct, project maintainers commit themselves to applying these principles fairly and consistently to every aspect of managing this project. Any maintainer who does not follow or enforce this Code of Conduct may be removed from the project team.
 
 This Code of Conduct applies both within project spaces and in public spaces when an individual is representing the project or its community.
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting a project maintainer at ammarb99@student.ubc.ca . All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances. Maintainers are obligated to maintain confidentiality with regard to the reporter of an incident.
+If you witness or experience any behavior that violates this Code of Conduct, please report it to a project maintainer at [syamnadhg@hotmail.com]. All complaints will be reviewed and investigated, and appropriate action will be taken as deemed necessary.
 
 This Code of Conduct is adapted from the Contributor Covenant, version 1.3.0, available at https://www.contributor-covenant.org/version/1/3/0/code-of-conduct.html
