@@ -50,18 +50,19 @@ To keep your fork up to date with changes in this repo, you can use the fetch up
 Then, fire up your Terminal on your local machine, and using Docker, follow these steps to reproduce this analysis:
 
 **1. Pull down docker image**
+
 Type in the following command in Terminal.
 ```
-docker pull *(name of our docker project:latest)*
+docker pull mjbrodie/dsci-310-group-project:latest
 ```
-Up to the present, the latest version is v_____. Replace `latest` with another specific version accordingly.
 
 **2. Run docker image**
+
 To mount your current directory to a container from the docker image of this project, `cd` to the **root** of the cloned repo, then run the command:
 ```
-docker run --rm -p 8888:8888 -v ${PWD}:file_path *(name of our docker project:latest)*
+docker run --rm -p 8888:8888 -v ${PWD}:file_path mjbrodie/dsci-310-group-project:latest
 ```
-Navigate to the directory *file_path* where you mounted your files via: cd file_path and type `ls` to ensure you can see them.
+Navigate to the directory *file_path* where you mounted your files via: cd *file_path* and type `ls` to ensure you can see them.
    
 ## Licenses
 - MIT license for project analysis (completed in a jupyter notebook)
