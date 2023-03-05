@@ -1,6 +1,19 @@
 # Predicting Win Rate of Tennis Players
 ### Group Project Repository for DSCI 310 - Group 16
 
+### Table of Contents
+=================
+
+   * [Authors/ Contributors](#authorscontributors)
+   * [Summary of Project](#summary-of-project)
+   * [Important Project Rules and Regulations](#important-project-rules-and-regulations)
+   * [Detailed Analysis](#detailed-analysis)
+   * [Dependencies required](#dependencies-required)
+   * [How to reproduce this project's Analysis.](#how-to-reproduce-this-projects-analysis)
+      * [Set Up Your Environment](#set-up-your-environment)
+   * [Licenses](#licenses)
+
+
 ## Authors/Contributors:
 * Ammar Bagharib  
 * Miles Brodie  
