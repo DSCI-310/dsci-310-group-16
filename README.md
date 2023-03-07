@@ -1,5 +1,5 @@
 # Predicting Win Rate of Tennis Players
-### Group Project Repository for DSCI 310 - Group 16
+DSCI 310 Group 16 project on Predicting Win Rate of Tennis Players done in Jupyter Notebook using R.
 
 ### Table of Contents
 =================
@@ -13,6 +13,7 @@
       * [Set Up Your Environment](#set-up-your-environment)
    * [Licenses](#licenses)
 
+=================
 
 ## Authors/Contributors:
 * Ammar Bagharib  
