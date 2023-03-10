@@ -4,28 +4,19 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r}
-library(knitr)
-library(here)
-library(readr)
-library(tidyverse)
-library(repr)
-library(tidymodels)
-library(rvest)
-library(stringr)
-library(DBI)
-library(dbplyr)
-library(GGally)
+```{r, message=FALSE, warning=FALSE}
+source(here("R/load_libraries.R"))
+source(here("R/load_data.R"))
+source(here("R/clean_data.R"))
 
-#atp_data_frame <- readr::read_csv("data/atp2017-2019-1.csv")
-source(here("R/load-data.R"))
 
-player_career
+atp_data_frame = load_data("data/atp2017-2019-1.csv")
+player_career(atp_data_frame)
 
 ```
 
