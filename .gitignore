@@ -1,6 +1,9 @@
 #ignore all html files
 *.html
 
+#ignore all csv files
+*.csv
+
 # DS Store
 .DS_Store
 
