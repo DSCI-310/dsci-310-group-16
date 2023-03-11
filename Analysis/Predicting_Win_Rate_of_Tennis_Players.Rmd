@@ -1,0 +1,73 @@
+---
+# title: "Predicting Win Rate of Tennis Players"
+# date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+library(here)
+source(here("R/load_libraries.R"))
+source(here("R/load_data.R"))
+source(here("R/clean_data.R"))
+```
+
+
+# Predicting the Win Rate of Tennis Players
+
+
+## Introduction
+### Background
+Tennis is a popular, competitive sport played around the world. Tennis can be played in "singles" where there is only one person on each side of the net or "doubles" where there are teams of two. It can be played on a variety of surfaces such as grass, clay, or hard court (i.e. like a gym floor).
+
+The association of tennis professionals, or ATP, organizes these tournaments and collects data on the players and the matches that take place.
+
+### Our Question
+Based on the career statistics of a tennis player, what will be their win rate?
+
+### Our Dataset
+We are using the "Game results for Top 500 Players from 2017-2019" dataset for our analysis. Each row in this dataset represents a singles match between two players. Each row contains player stats (e.g. age, height, rank) and match stats (break points, serve points, double faults etc.). We can use this data to determine the relationship between a player's stats and their win rate for this time period.
+
+## Methods and Results
+### Outline
+We will first transform the dataset of tennis matches into a tidy dataset with only player stats. Next, we will look at the relationships between the different variables and win_rate to choose predictors for our regression models. To answer our predictive question, we will train both KNN and linear regression models and then compare to find the model type and predictors that give the lowest error. Once we have the best model, we will try to predict the win rate for a new player observation.
+
+### Exploring the Data
+The code below reads the CSV file.
+
+```{r, message=FALSE, warning=FALSE}
+atp_data_frame = load_data("data/atp2017-2019-1.csv")
+```
+
+By mutating the data into nine predictors we can set KNN and Linear regression models to predict a player's career win rate. The predictors include:
+
+Variable	Explanation
+Age (years)	Older players will have sustained more injuries and be less fit.
+Height (cm)	Height can provide an advantage when serving.
+Serve Points that were Aces (%)	Winning points on a serve indicates a strong serve.
+First Serves (%)	The ratio of "first serve points" to "first serves made in" means a player's serve is more accurate
+First Serves Won (%)	Strong and accurate first serves will lead to fewer double faults.
+Second Serves Won (%)	Strong second serves means fewer lost points due to a slow serve.
+Double Faults per Game (ratio)	Fewer double faults per game indicates accurate serving.
+Breakpoints Saved (%)	Preventing breaks means a player wins the important points for winning the match
+Rank Points	Awarded to players by the ATP for winning matches
+Table 2: List of Potential Predictors created for our data set
+
+The predictors related to serving are useful because a player has the most control over the match during the games when they are serving. For information on each type of serve stat see (Keith Prowse Editors) under references.
+
+The stat on rank points is important because players earn a different number of rank points for each type of match (Nag, Utathya). Players may accumulate a lot of rank points by winning many lower ranked matches or by winning a few major matches, thus providing us insight to the wins a player may have.
+
+The code below cleans and wrangles the raw data set into tidy form by grouping the observations by player. We mutate some statistics to percentages through ratios of the raw variables. We then obtain each player's "career stats" by joining observations in both winning and losing rounds to the player ID. This forms a data frame with each row representing an individual player.
+
+```{r, message=FALSE, warning=FALSE}
+player_career(atp_data_frame)
+```
+
+Table 3: Mutated data table used for data processing
+
+We split the player career dataset into testing and training sets by a 75/25 split. We decided that this split ratio allowed for enough observations to be used to train our model while still having enough observations in our test set to evaluate its accuracy.
+
