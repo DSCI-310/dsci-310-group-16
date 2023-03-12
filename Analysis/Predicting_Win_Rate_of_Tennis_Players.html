@@ -1896,7 +1896,10 @@ single_predictors &lt;- list(
     &#39;height&#39;,&#39;breakpoint_saved_pct&#39;,&#39;second_serve_win_pct&#39;,&#39;first_serve_pct&#39;,
     &#39;first_serve_win_pct&#39;,&#39;age&#39;,&#39;mean_rank_points&#39;,&#39;ace_point_pct&#39;
   )</code></pre>
-<p>kknn single regression</p>
+</div>
+</div>
+<div id="kknn-single-regression" class="section level3">
+<h3>kknn single regression</h3>
 <pre class="r"><code>tab_df(
   rmspe_bind(
     predictors_vector = single_predictors, 
@@ -2039,7 +2042,9 @@ ace_point_pct
 </td>
 </tr>
 </table>
-<p>lm single regression</p>
+</div>
+<div id="lm-single-regression" class="section level3">
+<h3>lm single regression</h3>
 <pre class="r"><code>tab_df(
   rmspe_bind(
     predictors_vector = single_predictors, 
@@ -2163,7 +2168,9 @@ multiple_predictors &lt;- list(
     c(&quot;mean_rank_points&quot;, &quot;first_serve_pct&quot;, &quot;first_serve_win_pct&quot;),
     c(&quot;mean_rank_points&quot;, &quot;first_serve_pct&quot;, &quot;height&quot;)
   )</code></pre>
-<p>lm multiple regression</p>
+</div>
+<div id="lm-multiple-regression" class="section level3">
+<h3>lm multiple regression</h3>
 <pre class="r"><code>tab_df(
   rmspe_bind(
     predictors_vector = multiple_predictors, 
@@ -2246,7 +2253,9 @@ mean_rank_points + first_serve_pct + height
 </td>
 </tr>
 </table>
-<p>kknn multiple regression</p>
+</div>
+<div id="kknn-multiple-regression" class="section level3">
+<h3>kknn multiple regression</h3>
 <pre class="r"><code>tab_df(
   rmspe_bind(
     predictors_vector = multiple_predictors, 
@@ -2347,7 +2356,6 @@ mean_rank_points + first_serve_pct + height
 </td>
 </tr>
 </table>
-</div>
 </div>
 </div>
 </div>

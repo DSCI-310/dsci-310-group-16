@@ -1,4 +1,3 @@
-*.csv
 #ignore all html files
 *.html
 
