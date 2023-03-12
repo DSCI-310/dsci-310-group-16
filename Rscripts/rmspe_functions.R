@@ -14,6 +14,13 @@ str_collapse <- function(...){
 #' @param  target_variable  desired outcome of regression. e.g. win_rate . NOTE: input is NOT a string. 
 #' @param  ... expects column names as STRINGS e.g. "height", "age". can be entered separately, or as one vector containing strings of predictors
 #' @returns dataframe containing rmspe value, predictors, and if knn was specified, it returns best k value
+#' 
+#' @examples
+#' # rmspe_results(train_df = player_train, test_df = player_test, method = "kknn", mode = "single", target_variable = win_rate, "mean_rank_points")
+#' # rmspe_results(train_df = player_train, test_df = player_test, method = "lm", mode = "single", target_variable = win_rate, "mean_rank_points")
+#' # rmspe_results(train_df = player_train, test_df = player_test, method = "lm", mode = "multiple", target_variable = win_rate, "mean_rank_points", "first_serve_win_pct")
+#' # rmspe_results(train_df = player_train, test_df = player_test, method = "kknn", mode = "multiple", target_variable = win_rate, "mean_rank_points", "first_serve_win_pct")
+#' # rmspe_results(train_df = player_train, test_df = player_test, method = "lm", mode = "multiple", target_variable = win_rate, c("mean_rank_points", "first_serve_win_pct"))
 
 rmspe_results <- function(train_df, test_df, method, mode = "single", target_variable, ...) {
   
@@ -90,62 +97,8 @@ rmspe_results <- function(train_df, test_df, method, mode = "single", target_var
     )
 }
 
-player_train <- readr::read_csv(here::here("data/player_train.csv"))
-player_test <- readr::read_csv(here::here("data/player_test.csv"))
-
-## Test Cases
-{
-  # test 1: kknn single regression
-  rmspe_results(
-    train_df = player_train, 
-    test_df = player_test, 
-    method = "kknn", 
-    mode = "single", 
-    target_variable = win_rate,
-    "mean_rank_points")
-  
-  # test 2: linear single regression
-  rmspe_results(
-    train_df = player_train, 
-    test_df = player_test, 
-    method = "lm", 
-    mode = "single", 
-    target_variable = win_rate,
-    "mean_rank_points")
-  
-  # test 3: linear multiple regression
-  rmspe_results(
-    train_df = player_train, 
-    test_df = player_test, 
-    method = "lm", 
-    mode = "multiple",
-    target_variable = win_rate,
-    "mean_rank_points", 
-    "first_serve_win_pct"
-    )
-  
-  # test 4: kknn multiple regression
-  rmspe_results(
-    train_df = player_train, 
-    test_df = player_test, 
-    method = "kknn", 
-    mode = "multiple",
-    target_variable = win_rate,
-    "mean_rank_points", 
-    "first_serve_win_pct"
-  )
-  
-  #test 5: vector as predictors
-  rmspe_results(
-    train_df = player_train, 
-    test_df = player_test, 
-    method = "lm", 
-    mode = "multiple",
-    target_variable = win_rate,
-    c("mean_rank_points", "first_serve_win_pct")
-  )
-
-}
+player_train <- readr::read_csv(here::here("data/player_train.csv"), show_col_types = FALSE)
+player_test <- readr::read_csv(here::here("data/player_test.csv"), show_col_types = FALSE)
 
 #' This function rmspe_bind takes in the following parameters
 #' @param  predictors_vector a LIST of column names as STRINGS e.g. "height", "age"
@@ -155,6 +108,14 @@ player_test <- readr::read_csv(here::here("data/player_test.csv"))
 #' @param  mode referring to type of regression, default is "single", other values include: "multiple" - 
 #' @param  target_variable  accepts only STRING desired outcome of regression. e.g. win_rate . NOTE: input is NOT a string. 
 #' @returns  dataframe containing rmspe values of all the different recipes, predictors, and if knn was specified, it returns best k value
+
+#' @examples
+#' # single_predictors <- list('height','breakpoint_saved_pct','second_serve_win_pct','first_serve_pct')
+#' # rmspe_bind(predictors_vector = single_predictors, train_df = player_train, test_df = player_test,method = "lm", mode = "single", target_variable = 'win_rate')
+#' # rmspe_bind(predictors_vector = single_predictors, train_df = player_train, test_df = player_test,method = "kknn", mode = "single", target_variable = 'win_rate')
+#' # multiple_predictors <- list(c("mean_rank_points", "first_serve_win_pct"), c("mean_rank_points", "height"), c("mean_rank_points", "first_serve_pct") )
+#' # rmspe_bind(predictors_vector = multiple_predictors, train_df = player_train, test_df = player_test,method = "lm", mode = "multiple", target_variable = 'win_rate')
+#' # rmspe_bind(predictors_vector = multiple_predictors, train_df = player_train, test_df = player_test,method = "kknn", mode = "multiple", target_variable = 'win_rate')
 
 # Append outcome, predictor, best k, and rmspe value to the results dataframe
 rmspe_bind <- function(predictors_vector, train_df, test_df, method, mode, target_variable){
@@ -191,56 +152,17 @@ rmspe_bind <- function(predictors_vector, train_df, test_df, method, mode, targe
   return (rmspe_result_df)
 }
 
-# Test Cases
-{
-  single_predictors <- list(
-    'height','breakpoint_saved_pct','second_serve_win_pct','first_serve_pct'
-  )
-  # Test 1: lm single regression
-  rmspe_bind(
-    predictors_vector = single_predictors, 
-    train_df = player_train, 
-    test_df = player_test,
-    method = "lm", 
-    mode = "single",
-    target_variable = 'win_rate'
-  )
-  
-  # Test 2: knn single regression
-  rmspe_bind(
-    predictors_vector = single_predictors, 
-    train_df = player_train, 
-    test_df = player_test,
-    method = "kknn", 
-    mode = "single",
-    target_variable = 'win_rate'
-  )
-  
-  multiple_predictors <- list(
-    c("mean_rank_points", "first_serve_win_pct"),
-    c("mean_rank_points", "height"),
-    c("mean_rank_points", "first_serve_pct") 
-  )
-  
-  # Test 3: lm multiple regression
-  rmspe_bind(
-    predictors_vector = multiple_predictors, 
-    train_df = player_train, 
-    test_df = player_test,
-    method = "lm", 
-    mode = "multiple",
-    target_variable = 'win_rate'
-  )
-  
-  # Test 4: lm multiple regression
-  rmspe_bind(
-    predictors_vector = multiple_predictors, 
-    train_df = player_train, 
-    test_df = player_test,
-    method = "kknn", 
-    mode = "multiple",
-    target_variable = 'win_rate'
-  )
-}
+ 
+# TEST: invalid target_variable
+invalid_str <- rmspe_bind(
+  predictors_vector = multiple_predictors,
+  train_df = player_train,
+  test_df = player_test,
+  method = "kknn",
+  mode = "multiple",
+  target_variable = 2
+)
+
+testthat::expect_equal(invalid_str, "Please input target variable as a string!")
 
 
