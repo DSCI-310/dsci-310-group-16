@@ -13,7 +13,6 @@ RUN apt-get update && \
 RUN Rscript -e "install.packages('remotes')"
 RUN Rscript -e "remotes::install_version('data.table', '1.14.8')"
 RUN Rscript -e "remotes::install_version('DBI','1.1.3')"
-RUN Rscript -e "remotes::install_version('dbplyr', '2.3.0')"
 RUN Rscript -e "remotes::install_version('GGally', '2.1.2')"
 RUN Rscript -e "remotes::install_version('glue', '1.6.2')"
 RUN Rscript -e "remotes::install_version('here', '1.0.1')"
@@ -25,5 +24,8 @@ RUN Rscript -e "remotes::install_version('stringr', '1.5.0')"
 RUN Rscript -e "remotes::install_version('sjPlot', '2.8.12')"
 RUN Rscript -e "remotes::install_version('tidymodels','1.0.0')"
 RUN Rscript -e "remotes::install_version('tidyverse','1.3.2')"
+
+# Install remaining R packages
+RUN Rscript -e "install.packages(c('dbplyr'))"
 
 WORKDIR /home/rstudio
