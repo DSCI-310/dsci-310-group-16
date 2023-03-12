@@ -11,8 +11,6 @@ RUN apt-get update && \
 
 # Install specific R packages
 RUN Rscript -e "install.packages('remotes')"
-RUN Rscript -e "remotes::install_version('data.table', '1.14.8')"
-RUN Rscript -e "remotes::install_version('DBI','1.1.3')"
 RUN Rscript -e "remotes::install_version('data.table', '1.12.8')"
 RUN Rscript -e "remotes::install_version('DBI','1.1.0')"
 RUN Rscript -e "remotes::install_version('dbplyr', '2.2.0')"
@@ -29,6 +27,6 @@ RUN Rscript -e "remotes::install_version('tidymodels','0.1.1')"
 RUN Rscript -e "remotes::install_version('tidyverse','1.3.0')"
 
 # Install remaining R packages
-RUN Rscript -e "install.packages(c('dbplyr'))"
+RUN Rscript -e "install.packages(c('DBI', 'dbplyr'))"
 
 WORKDIR /home/rstudio
