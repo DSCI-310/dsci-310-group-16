@@ -51,11 +51,11 @@ By mutating the data into nine predictors we can set KNN and Linear regression m
 | Height (cm) | Height can provide an advantage when serving. |
 | Serve Points that were Aces (%) | Winning points on a serve indicates a strong serve. |
 | First Serves (%) | The ratio of "first serve points" to "first serves made in" means a player's serve is more accurate |
-| First Serves Won (%) | Strong and accurate first serves will lead to fewer double faults.
-| Second Serves Won (%) | Strong second serves means fewer lost points due to a slow serve.
-| Double Faults per Game (ratio) | Fewer double faults per game indicates accurate serving.
-| Breakpoints Saved (%) | Preventing breaks means a player wins the important points for winning the match
-| Rank Points |	Awarded to players by the ATP for winning matches
+| First Serves Won (%) | Strong and accurate first serves will lead to fewer double faults. |
+| Second Serves Won (%) | Strong second serves means fewer lost points due to a slow serve. |
+| Double Faults per Game (ratio) | Fewer double faults per game indicates accurate serving. |
+| Breakpoints Saved (%) | Preventing breaks means a player wins the important points for winning the match |
+| Rank Points |	Awarded to players by the ATP for winning matches |
 
 *Table 2: List of Potential Predictors created for our data set*
 
