@@ -4,7 +4,7 @@ Authors: Ammar Bagharib, Miles Brodie
 output: html_document
 ---
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE}
+```{r, message=FALSE, warning=FALSE, echo=TRUE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -83,8 +83,8 @@ player_train <- training(player_split)
 player_test <- testing(player_split)
 
 # csv_path <- paste0(here::here(), "/data")
-# write.csv(player_train, paste(csv_path, "player_train.csv", sep = "/"))
-# write.csv(player_test, paste(csv_path, "player_test.csv", sep = "/"))
+# write.csv(player_train, paste(csv_path, "player_train.csv", sep = "/"), row.names = FALSE)
+# write.csv(player_test, paste(csv_path, "player_test.csv", sep = "/"), row.names = FALSE)
 
 ```
 
