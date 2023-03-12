@@ -75,9 +75,8 @@ docker pull mjbrodie/dsci-310-group-project:latest
 
 To mount your current directory to a container from the docker image of this project, `cd` to the **root** of the cloned repo, then run the command:
 ```
-docker run --rm -p 8888:8888 -v ${PWD}:file_path mjbrodie/dsci-310-group-project:latest
+docker run -e PASSWORD={yourpassword} -p 8787:8787 mjbrodie/dsci-310-group-project:latest
 ```
-Navigate to the directory *file_path* where you mounted your files via: cd *file_path* and type `ls` to ensure you can see them.
    
 ## Licenses
 - MIT license for project analysis (completed in a jupyter notebook)
