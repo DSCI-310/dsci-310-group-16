@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 *.csv
+=======
+#ignore all html files
+>>>>>>> a113c61d7a609f007470c10da7f9b07839de795b
 *.html
 
 # DS Store
