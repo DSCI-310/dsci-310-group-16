@@ -143,7 +143,9 @@ rmspe_bind <- function(predictors_vector, train_df, test_df, method, mode, targe
   
   if (method == "lm"){
     # remove kmin column if method is linear
-    rmspe_result_df <- rmspe_result_df %>% select(-kmin) 
+    rmspe_result_df <- rmspe_result_df %>% mutate(kmin = "N/A", method = "lm") 
+  } else if (method == "kknn"){
+    rmspe_result_df <- rmspe_result_df %>% mutate(method = "kknn") 
   }
 
   # fill in output column
