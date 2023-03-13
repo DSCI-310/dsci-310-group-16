@@ -10,10 +10,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r, message=FALSE, warning=FALSE, echo = TRUE}
-library(here)
-source(here("R/load_libraries.R"))
-source(here("R/clean_data.R"))
-source(here("R/rmspe_functions.R"))
+source(here::here("R/load_libraries.R"))
+source(here::here("R/clean_data.R"))
+source(here::here("R/rmspe_functions.R"))
 ```
 
 # Predicting the Win Rate of Tennis Players
