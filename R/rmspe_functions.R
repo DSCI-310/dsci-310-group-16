@@ -56,7 +56,7 @@ rmspe_results <- function(train_df, test_df, method, mode = "single", target_var
       filter(.metric == "rmse") %>%
       filter(mean == min(mean))
     
-    kmin <- pull(tennis_results, neighbors) #derive k value that gives minimum rmspe value
+    kmin <- pull(tennis_results, neighbors) #derive most optimal k value that gives  minimum rmspe value
     
     tennis_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = kmin) %>%
       set_engine(method) %>%
@@ -143,7 +143,9 @@ rmspe_bind <- function(predictors_vector, train_df, test_df, method, mode, targe
   
   if (method == "lm"){
     # remove kmin column if method is linear
-    rmspe_result_df <- rmspe_result_df %>% select(-kmin) 
+    rmspe_result_df <- rmspe_result_df %>% mutate(kmin = "N/A", method = "lm") 
+  } else if (method == "kknn"){
+    rmspe_result_df <- rmspe_result_df %>% mutate(method = "kknn") 
   }
 
   # fill in output column
