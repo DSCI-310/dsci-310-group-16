@@ -352,10 +352,10 @@ display: none;
 </div>
 
 
-<pre class="r"><code>library(here)
-source(here(&quot;Rscripts/load_libraries.R&quot;))
-source(here(&quot;Rscripts/clean_data.R&quot;))
-source(here(&quot;Rscripts/rmspe_functions.R&quot;))</code></pre>
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)</code></pre>
+<pre class="r"><code>source(here::here(&quot;R/load_libraries.R&quot;))
+source(here::here(&quot;R/clean_data.R&quot;))
+source(here::here(&quot;R/rmspe_functions.R&quot;))</code></pre>
 <div id="predicting-the-win-rate-of-tennis-players" class="section level1">
 <h1>Predicting the Win Rate of Tennis Players</h1>
 <div id="introduction" class="section level2">
@@ -1795,8 +1795,8 @@ player_train &lt;- training(player_split)
 player_test &lt;- testing(player_split)
 
 # csv_path &lt;- paste0(here::here(), &quot;/data&quot;)
-# write.csv(player_train, paste(csv_path, &quot;player_train.csv&quot;, sep = &quot;/&quot;))
-# write.csv(player_test, paste(csv_path, &quot;player_test.csv&quot;, sep = &quot;/&quot;))</code></pre>
+# write.csv(player_train, paste(csv_path, &quot;player_train.csv&quot;, sep = &quot;/&quot;), row.names = FALSE)
+# write.csv(player_test, paste(csv_path, &quot;player_test.csv&quot;, sep = &quot;/&quot;), row.names = FALSE)</code></pre>
 <p>The table below contains the means of each quantitative variable in
 the training set. This gives an idea of the average statistics for a
 given player, which is relevant for exploratory data analysis. It tells
