@@ -29,23 +29,28 @@ The goal of this project is to predict the win rate of tennis players using mach
 - [Code of Conduct](https://github.com/mjbrodie/dsci-310-group-16/blob/main/CODE_OF_CONDUCT.md)
 
 ## Detailed Analysis
-The detailed analysis can be found [**here**](https://github.com/mjbrodie/dsci-310-group-16/blob/main/Analysis/Predicting_Win_Rate_of_Tennis_Players.ipynb)
+The detailed analysis files can be found [**here**](https://github.com/mjbrodie/dsci-310-group-16/blob/main/Analysis)
     
 ## Dependencies required
 The following are dependencies used within this project, and that which is necessary to reproduce an identical analysis.
 | Package Name | Version |
 | ------------ | ------- |
-| R            | 4.1.3   |
-| tidyverse    | 1.3.0   |
-| tidymodels   | 0.1.1   |
-| GGally       | 2.1.2   |
-| remotes      | LATEST  |
-| repr         | LATEST  |
-| rvest        | LATEST  |
-| stringr      | LATEST  |
-| DBI          | LATEST  |
-| dbplyr       | LATEST  |
-   
+| R | 4.1.3   |
+| data.table | 1.12.8   |
+| DBI | 1.1.0 |
+| GGally       | 2.1.0   |
+| glue | 1.6.2 |
+| here | 1.0.1 |
+| tidymodels | 0.1.1 |
+| tidyverse | 1.3.0 |
+| dbplyr | LATEST |
+| knitr | LATEST |
+| readr | LATEST |
+| repr | LATEST |
+| rvest | LATEST |
+| stringr | LATEST |
+| sjPlot | LATEST |
+
    see [Dockerfile](Dockerfile)
    
 ## How to reproduce this project's Analysis. 
