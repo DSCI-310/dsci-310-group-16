@@ -73,7 +73,7 @@ docker pull mjbrodie/dsci-310-group-project:latest
 
 **2. Run docker image**
 
-To mount your current directory to a container from the docker image of this project, `cd` to the **root** of the cloned repo, then run the command:
+Run the following in your terminal
 ```
 docker run -e PASSWORD={yourpassword} -p 8787:8787 mjbrodie/dsci-310-group-project:latest
 ```
