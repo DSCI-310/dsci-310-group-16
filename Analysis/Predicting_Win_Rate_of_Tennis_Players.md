@@ -1,0 +1,256 @@
+---
+Title: "Predicting Win Rate of Tennis Players"
+Authors: Ammar Bagharib, Miles Brodie
+output: html_document
+---
+
+```
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```
+library(here)
+library(ggplot2)
+source(here("Rscripts/load_libraries.R"))
+source(here("Rscripts/clean_data.R"))
+source(here("Rscripts/rmspe_functions.R"))
+```
+
+# Predicting the Win Rate of Tennis Players
+
+## Introduction
+### Background
+Tennis is a popular, competitive sport played around the world. It is a physically demanding game that requires agility, speed, and accuracy, and can be played in "singles" where there is only one person on each side of the net or "doubles" where there are teams of two. The game can be played on a variety of surfaces such as grass, clay, or hard court (i.e. like a gym floor).
+
+The Association of Tennis Professionals (ATP) organizes tournaments and collects data on players and their matches. The ATP maintains a ranking system for men's singles, doubles, and mixed doubles players, based on their performance in tournaments.
+
+### Our Question
+A tennis player's win rate is a key performance indicator that reflects their overall performance on the court. The question we aim to answer is: based on the career statistics of a tennis player, what will be their win rate?
+
+### Our Dataset
+To answer this question, we will use the "Game results for Top 500 Players from 2017-2019" dataset. This dataset contains information on singles matches between two players, including player stats (e.g. age, height, rank) and match stats (break points, serve points, double faults, etc.). We will use this data to determine the relationship between a player's stats and their win rate during this time period.
+
+### Methods and Results
+To address our research question, we will first transform the dataset of tennis matches into a tidy dataset that only includes player stats. Next, we will explore the relationships between different variables and win_rate to select predictors for our regression models. We will then train both KNN and linear regression models, comparing their performance to find the model type and predictors that give the lowest error. Once we have the best model, we will attempt to predict the win rate for a new player observation.
+
+By analyzing the data, we hope to gain insights into the factors that contribute to a tennis player's win rate and ultimately, assist coaches and players in developing strategies to improve their performance on the court.
+
+### Exploring the Data
+The code below reads the CSV file.
+
+
+```
+atp_df <- readr::read_csv(here("data/atp2017-2019-1.csv"))
+tab_df(head(atp_df), title = "Table 1: Raw data table")
+```
+
+By mutating the data into nine predictors we can set KNN and Linear regression models to predict a player's career win rate. The predictors include:
+
+| Variable | Explanation |
+|:--- | :--- |
+| Age (years) | Older players will have sustained more injuries and be less fit. |
+| Height (cm) | Height can provide an advantage when serving. |
+| Serve Points that were Aces (%) | Winning points on a serve indicates a strong serve. |
+| First Serves (%) | The ratio of "first serve points" to "first serves made in" means a player's serve is more accurate |
+| First Serves Won (%) | Strong and accurate first serves will lead to fewer double faults. |
+| Second Serves Won (%) | Strong second serves means fewer lost points due to a slow serve. |
+| Double Faults per Game (ratio) | Fewer double faults per game indicates accurate serving. |
+| Breakpoints Saved (%) | Preventing breaks means a player wins the important points for winning the match |
+| Rank Points |	Awarded to players by the ATP for winning matches |
+
+*Table 2: List of Potential Predictors created for our data set*
+
+The predictors related to serving are useful because a player has the most control over the match during the games when they are serving. For information on each type of serve stat see (Keith Prowse Editors) under references.
+
+The stat on rank points is important because players earn a different number of rank points for each type of match (Nag, Utathya). Players may accumulate a lot of rank points by winning many lower ranked matches or by winning a few major matches, thus providing us insight to the wins a player may have.
+
+The code below cleans and wrangles the raw data set into tidy form by grouping the observations by player. We mutate some statistics to percentages through ratios of the raw variables. We then obtain each player's "career stats" by joining observations in both winning and losing rounds to the player ID. This forms a data frame with each row representing an individual player.
+
+### Data Transformation
+
+
+```
+player_career <- player_career(atp_df)
+tab_df(head(player_career), title = "Table 3: Mutated data table used for data processing")
+```
+
+We split the player career dataset into testing and training sets by a 75/25 split. We decided that this split ratio allowed for enough observations to be used to train our model while still having enough observations in our test set to evaluate its accuracy.
+
+
+
+```
+# split the data set into training and testing set. The following exploratory data analysis uses only the training set
+set.seed(20)
+player_split <- initial_split(player_career, prop = 0.75, strata = win_rate)
+player_train <- training(player_split)
+player_test <- testing(player_split)
+
+# csv_path <- paste0(here::here(), "/data")
+# write.csv(player_train, paste(csv_path, "player_train.csv", sep = "/"), row.names = FALSE)
+# write.csv(player_test, paste(csv_path, "player_test.csv", sep = "/"), row.names = FALSE)
+
+```
+
+The table below contains the means of each quantitative variable in the training set. This gives an idea of the average statistics for a given player, which is relevant for exploratory data analysis. It tells us what sort of values (or percentages) we can expect for each stat.
+
+
+```
+# the means of the predictor variables we plan to use in our analysis
+exploratory_data_analysis_table <- player_train %>%
+    select(-player_id) %>%
+    map_df(mean, na.rm = TRUE)
+tab_df(exploratory_data_analysis_table, title = "Table 4: Mean Values for each Predictor Variable")
+```
+
+The code below produces a visualization which is also very useful in our exploratory data analysis. By using the function ggpairs, we can see the "big picture" of all the relationships between each pair of variables. This visualization helps us pick which variables have a relatively strong relationship with win rate, and thus will be effective in predictions.
+
+
+```
+# select all quantitative predictors and visualize with ggpairs()
+player_ggpairs <- player_train %>%
+    select(-player_id) %>%
+    ggpairs()
+
+player_ggpairs
+```
+
+*Figure 1: Plot of All Predictor Relationships using ggpairs*
+
+### Model Selection
+
+The first option for our model is K-NN regression for individual predictors with win_rate as the target value. In order to simplify the steps, we use a for loop to run the model on each predictor. The result is a table with 4 columns: the target variable, predictor, best k value (as chosen through cross validation), and RMSPE.
+
+The second option is K-NN regression for combined predictors with win_rate as the target. The combined predictors are chosen from the strongest relationships we observed in player_ggpairs. Again, we iterate with a for loop to reduce the amount of code. The resulting table contains the same 3 columns as the individual predictors.
+
+The third option is linear regression for individual predictors with win_rate as the target. Again, we iterate with a for loop to reduce the amount of code. The resulting table has only 2 columns this time: predictor and RMSPE. Since the model is using linear regression, there is no k-value.
+
+Finally, the last option is linear regression for combined predictors with win_rate as the target. Again, we iterate with a for loop to reduce the amount of code. The result is presented by a table with 2 columns.
+
+
+```
+# create a list of predictors for the single variable regression
+single_predictors <- list(
+    'height','breakpoint_saved_pct','second_serve_win_pct','first_serve_pct',
+    'first_serve_win_pct','age','mean_rank_points','ace_point_pct'
+  )
+```
+
+### kknn single regression
+
+
+```
+tab_df(
+  rmspe_bind(
+    predictors_vector = single_predictors, 
+    train_df = player_train, 
+    test_df = player_test,
+    method = "kknn", 
+    mode = "single",
+    target_variable = 'win_rate'
+  ), 
+  title = "kknn single regression"
+)
+
+```
+
+### lm single regression
+
+
+```
+tab_df(
+  rmspe_bind(
+    predictors_vector = single_predictors, 
+    train_df = player_train, 
+    test_df = player_test,
+    method = "lm", 
+    mode = "single",
+    target_variable = 'win_rate'
+  ), 
+  title = "lm single regression"
+)
+```
+
+
+```
+# create a list of predictors for the multiple variable regression
+multiple_predictors <- list(
+    c("mean_rank_points", "first_serve_win_pct"),
+    c("mean_rank_points", "height"),
+    c("mean_rank_points", "first_serve_pct"),
+    c("mean_rank_points", "first_serve_pct", "first_serve_win_pct"),
+    c("mean_rank_points", "first_serve_pct", "height")
+  )
+```
+
+### lm multiple regression
+
+
+```
+tab_df(
+  rmspe_bind(
+    predictors_vector = multiple_predictors, 
+    train_df = player_train, 
+    test_df = player_test,
+    method = "lm", 
+    mode = "multiple",
+    target_variable = 'win_rate'
+  ), 
+  title = "lm multiple regression"
+)
+```
+
+### kknn multiple regression
+
+
+```
+tab_df(
+  rmspe_bind(
+    predictors_vector = multiple_predictors, 
+    train_df = player_train, 
+    test_df = player_test,
+    method = "kknn", 
+    mode = "multiple",
+    target_variable = 'win_rate'
+  ), 
+  title = "kknn multiple regression"
+)
+```
+
+### Best Plot
+
+
+```
+best_plot <- function(df, method) {
+  ggplot(df, aes(x = predictors, y = rmspe)) +
+    geom_line() +
+    geom_point() +
+    labs(x = "Predictors", y = "Root Mean Squared Prediction Error (RMSPE)", title = method) +
+    theme_bw() +
+    theme(text = element_text(size = 16))
+}
+
+kknn_single <- rmspe_bind(predictors_vector = single_predictors, train_df = player_train, test_df = player_test, method = "kknn", mode = "single", target_variable = 'win_rate')
+
+best_plot(kknn_single, "kknn single regression")
+```
+
+### Discussion 
+Overall, we found that a player's "mean rank points" and "first serve win %" are good predictors for estimating a player's win rate. Using these variables, we trained a KNN regression model that had an RMSPE of only 8.53. This RMSPE is lower compared to a linear regression model using the same predictors. We tested our model on some newly created players, with varying rank points and first serve win %s. We found that the predicted win rate reflected the stats accordingly.
+
+This result makes sense because a player that has a lot of rank points and a strong serve is likely to win more games. The KNN model outperformed the linear regression model in our analysis, likely because of the non-linear relationship between rank points and win rate. Our model can predict the win rate of a tennis player using only a few statistics, and this could be useful in several ways. For example, it gives a sense of how the player will perform in the future, which could be helpful in scouting or sports betting.
+
+However, our analysis does have some limitations. For example, we only used two predictors to predict the win rate, and there could be other important factors that influence a player's performance, such as experience, age, and playing style. Additionally, our model was trained on data from the ATP tour, and the results may not necessarily generalize to other levels of competition, such as college or amateur tennis.
+
+Future work could explore additional predictors, such as the number of aces or double faults a player makes, the surface they are playing on, or their opponent's ranking. Moreover, it could be useful to analyze the impact of different weight functions on the model's performance and to compare the performance of different machine learning algorithms.
+
+### References 
+Keith Prowse Editors. “Love? Ace? Tennis Terminology Explained: Tennis Glossary.” Keith Prowse, 2019, www.keithprowse.co.uk/news-and-blog/2019/01/02/tennis-terminology-explained/
+
+Nag, Utathya. “Tennis Rankings: How They Work and Difference between ATP and Wta Systems.” Tennis Rankings: Everything You Need to Know, International Olympic Committee, 2021, www.olympics.com/en/featured-news/tennis-rankings-atp-wta-men-women-doubles-singles-system-grand-slam-olympics
+
+Timbers, Andrew, et al. "Data Science: A First Introduction." UBC Data Science, 2021.
+
+Sackmann, Jeff. "JeffSackmann/tennis_atp." GitHub, 2021, github.com/JeffSackmann/tennis_atp.
+ 
+
