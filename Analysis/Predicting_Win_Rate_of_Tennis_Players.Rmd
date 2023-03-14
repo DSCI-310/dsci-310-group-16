@@ -303,7 +303,3 @@ Nag, Utathya. “Tennis Rankings: How They Work and Difference between ATP and W
 Timbers, Andrew, et al. "Data Science: A First Introduction." UBC Data Science, 2021.
 
 Sackmann, Jeff. "JeffSackmann/tennis_atp." GitHub, 2021, github.com/JeffSackmann/tennis_atp.
- 
-
-
-
