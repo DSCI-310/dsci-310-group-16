@@ -1,6 +1,6 @@
 ---
 Title: "Predicting Win Rate of Tennis Players"
-Authors: Ammar Bagharib, Miles Brodie
+Authors: Ammar Bagharib, Miles Brodie, Sammy Gulipalli
 output: html_document
 ---
 
@@ -11,7 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, message=FALSE, warning=FALSE, echo = TRUE}
 source(here::here("R/load_libraries.R"))
-source(here::here("R/clean_data.R"))
+source(here::here("R/load.R"))
+source(here::here("R/clean.R"))
 source(here::here("R/rmspe_functions.R"))
 ```
 
@@ -67,7 +68,8 @@ The code below cleans and wrangles the raw data set into tidy form by grouping t
 
 ### Data Transformation
 ```{r, message=FALSE, warning=FALSE,}
-player_career <- player_career(atp_df)
+#player_career <- player_career(atp_df)
+
 sjPlot::tab_df(head(player_career), title = "Table 3: Mutated data table used for data processing")
 ```
 
