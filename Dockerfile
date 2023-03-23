@@ -20,6 +20,6 @@ RUN Rscript -e "remotes::install_version('tidymodels','0.1.1')"
 RUN Rscript -e "remotes::install_version('tidyverse','1.3.0')"
 
 # Install remaining R packages
-RUN Rscript -e "install.packages(c('dbplyr', 'knitr', 'readr', 'repr', 'rvest', 'stringr', 'sjPlot'))"
+RUN Rscript -e "install.packages(c('dbplyr', 'knitr', 'readr', 'repr', 'rvest', 'stringr', 'sjPlot', 'testthat'))"
 
 WORKDIR /home/rstudio
