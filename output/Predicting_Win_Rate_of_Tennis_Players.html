@@ -354,7 +354,8 @@ display: none;
 
 <pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)</code></pre>
 <pre class="r"><code>source(here::here(&quot;R/load_libraries.R&quot;))
-source(here::here(&quot;R/clean_data.R&quot;))
+source(here::here(&quot;R/load.R&quot;))
+source(here::here(&quot;R/clean.R&quot;))
 source(here::here(&quot;R/rmspe_functions.R&quot;))</code></pre>
 <div id="predicting-the-win-rate-of-tennis-players" class="section level1">
 <h1>Predicting the Win Rate of Tennis Players</h1>
@@ -418,6 +419,9 @@ Table 1: Raw data table
 …1
 </th>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">
+…2
+</th>
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">
 tourney_id
 </th>
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">
@@ -429,144 +433,147 @@ surface
 <th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">
 draw_size
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; ">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; col7">
 tourney_level
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; col7">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; col8">
 tourney_date
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; col8">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; col9">
 match_num
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; col9">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 0">
 winner_id
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 0">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 1">
 winner_seed
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 1">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 2">
 winner_entry
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 2">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 3">
 winner_name
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 3">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 4">
 winner_hand
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 4">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 5">
 winner_ht
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 5">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 6">
 winner_ioc
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 6">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 7">
 winner_age
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 7">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 8">
 loser_id
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 8">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 9">
 loser_seed
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 9">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 0">
 loser_entry
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 0">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 1">
 loser_name
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 1">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 2">
 loser_hand
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 2">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 3">
 loser_ht
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 3">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 4">
 loser_ioc
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 4">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 5">
 loser_age
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 5">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 6">
 score
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 6">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 7">
 best_of
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 7">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 8">
 round
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 8">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 9">
 minutes
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 9">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 0">
 w_ace
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 0">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 1">
 w_df
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 1">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 2">
 w_svpt
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 2">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 3">
 w_1stIn
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 3">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 4">
 w_1stWon
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 4">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 5">
 w_2ndWon
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 5">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 6">
 w_SvGms
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 6">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 7">
 w_bpSaved
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 7">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 8">
 w_bpFaced
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 8">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 9">
 l_ace
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 9">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 0">
 l_df
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 0">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 1">
 l_svpt
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 1">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 2">
 l_1stIn
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 2">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 3">
 l_1stWon
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 3">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 4">
 l_2ndWon
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 4">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 5">
 l_SvGms
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 5">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 6">
 l_bpSaved
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 6">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 7">
 l_bpFaced
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 7">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 8">
 winner_rank
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 8">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 9">
 winner_rank_points
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 9">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 0">
 loser_rank
 </th>
-<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 0">
+<th style="border-top: double; text-align:center; font-style:italic; font-weight:normal; padding:0.2cm; border-bottom:1px solid black; 1">
 loser_rank_points
 </th>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+1
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 0
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
@@ -581,144 +588,147 @@ Hard
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 32
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">
 A
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">
 20181231
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">
 300
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 105453
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 2
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 Kei Nishikori
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 178
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 JPN
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 29.00
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 106421
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 4
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 Daniil Medvedev
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 RUS
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 22.89
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 6-4 3-6 6-2
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 3
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 F
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 124
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
-3
-</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 3
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+3
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 77
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 44
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 31
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 17
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 13
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 3
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 6
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 8
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 6
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 100
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 54
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 34
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 20
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 14
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 10
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 15
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 9
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 3590
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 16
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 1977
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+2
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 1
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
@@ -733,144 +743,147 @@ Hard
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 32
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">
 A
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">
 20181231
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">
 299
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 106421
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 4
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 Daniil Medvedev
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 RUS
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 22.89
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 104542
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 PR
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 Jo Wilfried Tsonga
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 188
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 FRA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 33.71
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 7-6(6) 6-2
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 3
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 SF
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 82
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 10
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 1
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 52
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 33
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 28
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 14
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 10
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 0
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 1
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 17
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 2
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 77
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 52
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 36
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
-7
-</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
-10
+7
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 10
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
-13
+10
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
-16
+13
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
-1977
+16
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
-239
+1977
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+239
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 200
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+3
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 2
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
@@ -885,144 +898,147 @@ Hard
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 32
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">
 A
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">
 20181231
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">
 298
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 105453
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 2
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 Kei Nishikori
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 178
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 JPN
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 29.00
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 104871
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
-NA
-</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 NA
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+NA
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 Jeremy Chardy
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 188
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 FRA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 31.88
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 6-2 6-2
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 3
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 SF
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 66
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
-2
-</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 2
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+2
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 47
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 33
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 26
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 9
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
-8
-</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
-2
+8
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 2
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+2
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 10
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 3
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 46
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 27
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 15
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 6
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 8
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 1
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 5
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 9
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 3590
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 40
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 1050
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+4
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 3
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
@@ -1037,144 +1053,147 @@ Hard
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 32
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">
 A
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">
 20181231
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">
 297
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 104542
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 PR
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 Jo Wilfried Tsonga
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 188
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 FRA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 33.71
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 200282
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 7
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 Alex De Minaur
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 AUS
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 19.87
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 6-4 7-6(2)
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 3
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 QF
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 106
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 12
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 2
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 68
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 43
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 34
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 15
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 11
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 4
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 5
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 1
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 2
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 81
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 60
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 38
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 9
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 11
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 4
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 6
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 239
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 200
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 31
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 1298
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+5
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 4
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
@@ -1189,144 +1208,147 @@ Hard
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
 32
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; ">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">
 A
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">
 20181231
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">
 296
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; col9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 106421
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 4
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 Daniil Medvedev
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 RUS
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 22.89
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 105683
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 5
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 Milos Raonic
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 196
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 CAN
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 28.01
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 6-7(2) 6-3 6-4
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 3
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 QF
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 129
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 12
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 3
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 105
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 68
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 48
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 25
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
-16
-</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
-8
+16
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 8
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+8
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 29
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 5
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 94
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
 56
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
 46
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
 19
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
 15
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
 2
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
 4
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
 16
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
 1977
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
 18
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; 1">
 1855
 </td>
 </tr>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; border-bottom: double; ">
+6
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
 5
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
@@ -1341,139 +1363,139 @@ Hard
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
 32
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; ">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; col7">
 A
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; col7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; col8">
 20181231
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; col8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; col9">
 295
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; col9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 0">
 104871
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 0">
-NA
-</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 1">
 NA
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 2">
+NA
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 3">
 Jeremy Chardy
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 4">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 5">
 188
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 6">
 FRA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 7">
 31.88
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 8">
 106034
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 9">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 0">
 Q
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 1">
 Yasutaka Uchiyama
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 2">
 R
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 3">
 NA
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 4">
 JPN
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 5">
 26.40
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 6">
 6-4 3-6 7-6(4)
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 7">
 3
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 8">
 QF
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 9">
 127
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 9">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 0">
 10
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 0">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 1">
 8
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 1">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 2">
 94
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 2">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 3">
 58
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 4">
 44
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 4">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 5">
 18
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 5">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 6">
 16
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 6">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 7">
 4
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 7">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 8">
 8
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 8">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 9">
 12
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 9">
-6
-</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 0">
-90
+6
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 1">
-54
+90
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 2">
-40
+54
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 3">
-18
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 4">
-15
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 5">
-6
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 6">
-9
-</td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 7">
 40
 </td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 4">
+18
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 5">
+15
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 6">
+6
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 7">
+9
+</td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 8">
-1050
+40
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 9">
-185
+1050
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 0">
+185
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center; border-bottom: double; 1">
 275
 </td>
 </tr>
@@ -1558,7 +1580,8 @@ representing an individual player.</p>
 </div>
 <div id="data-transformation" class="section level3">
 <h3>Data Transformation</h3>
-<pre class="r"><code>player_career &lt;- player_career(atp_df)
+<pre class="r"><code>#player_career &lt;- player_career(atp_df)
+
 sjPlot::tab_df(head(player_career), title = &quot;Table 3: Mutated data table used for data processing&quot;)</code></pre>
 <table style="border-collapse:collapse; border:none;">
 <caption style="font-weight: bold; text-align:left;">
