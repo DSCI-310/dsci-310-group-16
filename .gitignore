@@ -4,6 +4,9 @@
 #ignore all csv files
 *.csv
 
+#ignore all png files
+*.png
+
 # DS Store
 .DS_Store
 

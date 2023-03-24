@@ -1,5 +1,5 @@
 #load file
-atp_df <- read.csv("data/atp2017-2019-1.csv")
+atp_df <- data.table::fread("data/atp2017-2019-1.csv")
 
 ##  RScript that takes in data set and runs initial cleaning of data
 
@@ -53,6 +53,5 @@ player_career <- player_join %>%
          ace_point_pct) %>%
   tidyr::drop_na()
 
-#player_career
-
-write.csv(player_career,'data/cleaned_atp2017-2019-1.csv', row.names = FALSE)
+#export into csv
+data.table::fwrite(player_career,'data/cleaned_atp2017-2019-1.csv', row.names = FALSE)

@@ -38,7 +38,7 @@ rmspe_results <- function(train_df, test_df, method, mode = "single", target_var
     recipes::step_center(all_predictors())
   
   if (method == "kknn"){
-    tennis_spec <- recipes::nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
+    tennis_spec <- parsnip::nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
       parsnip::set_engine(method) %>% #whether KNN or Linear Regression
       parsnip::set_mode("regression")
   
@@ -58,7 +58,7 @@ rmspe_results <- function(train_df, test_df, method, mode = "single", target_var
     
     kmin <- dplyr::pull(tennis_results, neighbors) #derive k value that gives minimum rmspe value
     
-    tennis_spec <- recipes::nearest_neighbor(weight_func = "rectangular", neighbors = kmin) %>%
+    tennis_spec <- parsnip::nearest_neighbor(weight_func = "rectangular", neighbors = kmin) %>%
       parsnip::set_engine(method) %>%
       parsnip::set_mode("regression")
   }
@@ -97,8 +97,8 @@ rmspe_results <- function(train_df, test_df, method, mode = "single", target_var
     )
 }
 
-player_train <- read.csv(here::here("data/player_train.csv"))
-player_test <- read.csv(here::here("data/player_test.csv"))
+# player_train <- read.csv(here::here("data/player_train.csv"))
+# player_test <- read.csv(here::here("data/player_test.csv"))
 
 #' This function rmspe_bind takes in the following parameters
 #' @param  predictors_vector a LIST of column names as STRINGS e.g. "height", "age"
@@ -160,15 +160,15 @@ rmspe_bind <- function(predictors_vector, train_df, test_df, method, mode, targe
 
  
 # TEST: invalid target_variable
-invalid_str <- rmspe_bind(
-  predictors_vector = multiple_predictors,
-  train_df = player_train,
-  test_df = player_test,
-  method = "kknn",
-  mode = "multiple",
-  target_variable = 2
-)
-
-testthat::expect_equal(invalid_str, "Please input target variable as a string!")
+# invalid_str <- rmspe_bind(
+#   predictors_vector = multiple_predictors,
+#   train_df = player_train,
+#   test_df = player_test,
+#   method = "kknn",
+#   mode = "multiple",
+#   target_variable = 2
+# )
+# 
+# testthat::expect_equal(invalid_str, "Please input target variable as a string!")
 
 
