@@ -25,61 +25,61 @@ str_collapse <- function(...){
 rmspe_results <- function(train_df, test_df, method, mode = "single", target_variable, ...) {
   
   #create train data, includes win rate and predictors
-  train_data <- train_df %>% select({{target_variable}}, ...) 
+  train_data <- train_df %>% dplyr::select({{target_variable}}, ...) 
 
   #create test data, includes win rate and predictors
   test_data <- player_test %>%
-    select({{target_variable}}, ...)
+    dplyr::select({{target_variable}}, ...)
   
   #create recipe with predictors and outcome
-  tennis_recipe <- recipe(~ ., data = train_data) %>%
-    update_role({{target_variable}}, new_role = "outcome") %>%
-    step_scale(all_predictors()) %>%
-    step_center(all_predictors())
+  tennis_recipe <- recipes::recipe(~ ., data = train_data) %>%
+    recipes::update_role({{target_variable}}, new_role = "outcome") %>%
+    recipes::step_scale(all_predictors()) %>%
+    recipes::step_center(all_predictors())
   
   if (method == "kknn"){
-    tennis_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
-      set_engine(method) %>% #whether KNN or Linear Regression
-      set_mode("regression")
+    tennis_spec <- recipes::nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
+      parsnip::set_engine(method) %>% #whether KNN or Linear Regression
+      parsnip::set_mode("regression")
   
-    tennis_workflow <- workflow() %>%
-      add_recipe(tennis_recipe) %>%
-      add_model(tennis_spec)
+    tennis_workflow <- workflows::workflow() %>%
+      workflows::add_recipe(tennis_recipe) %>%
+      workflows::add_model(tennis_spec)
 
-    tennis_vfold <- vfold_cv(train_data, v = 5, strata = {{target_variable}})
+    tennis_vfold <- rsample::vfold_cv(train_data, v = 5, strata = {{target_variable}})
     
     gridvals <- tibble(neighbors = seq(1,40))
     
     tennis_results <- tennis_workflow %>%
-      tune_grid(resamples = tennis_vfold, grid = gridvals) %>%
-      collect_metrics() %>%
-      filter(.metric == "rmse") %>%
-      filter(mean == min(mean))
+      tune::tune_grid(resamples = tennis_vfold, grid = gridvals) %>%
+      tune::collect_metrics() %>%
+      dplyr::filter(.metric == "rmse") %>%
+      dplyr::filter(mean == min(mean))
     
-    kmin <- pull(tennis_results, neighbors) #derive k value that gives minimum rmspe value
+    kmin <- dplyr::pull(tennis_results, neighbors) #derive k value that gives minimum rmspe value
     
-    tennis_spec <- nearest_neighbor(weight_func = "rectangular", neighbors = kmin) %>%
-      set_engine(method) %>%
-      set_mode("regression")
+    tennis_spec <- recipes::nearest_neighbor(weight_func = "rectangular", neighbors = kmin) %>%
+      parsnip::set_engine(method) %>%
+      parsnip::set_mode("regression")
   }
   else if (method == "lm"){ #if linear regression is used
-    tennis_spec <- linear_reg() %>%
-      set_engine(method) %>%
-      set_mode("regression")
+    tennis_spec <- parsnip::linear_reg() %>%
+      parsnip::set_engine(method) %>%
+      parsnip::set_mode("regression")
   }
   
-  tennis_fit <- workflow() %>%
-    add_recipe(tennis_recipe) %>%
-    add_model(tennis_spec) %>%
+  tennis_fit <- workflows::workflow() %>%
+    workflows::add_recipe(tennis_recipe) %>%
+    workflows::add_model(tennis_spec) %>%
     fit(data = train_data)
   
   rmspe_val <- tennis_fit %>%
     predict(test_data) %>%
-    bind_cols(test_data) %>%
+    dplyr::bind_cols(test_data) %>%
     metrics(truth = {{target_variable}}, estimate = .pred) %>%
-    filter(.metric == "rmse") %>%
-    select(.estimate) %>%
-    pull()
+    dplyr::filter(.metric == "rmse") %>%
+    dplyr::select(.estimate) %>%
+    dplyr::pull()
   
     if (mode == "multiple"){
       predictor_str <- str_collapse(c(...)) #combine input arguments into a string
@@ -97,8 +97,8 @@ rmspe_results <- function(train_df, test_df, method, mode = "single", target_var
     )
 }
 
-player_train <- readr::read_csv(here::here("data/player_train.csv"), show_col_types = FALSE)
-player_test <- readr::read_csv(here::here("data/player_test.csv"), show_col_types = FALSE)
+player_train <- read.csv(here::here("data/player_train.csv"))
+player_test <- read.csv(here::here("data/player_test.csv"))
 
 #' This function rmspe_bind takes in the following parameters
 #' @param  predictors_vector a LIST of column names as STRINGS e.g. "height", "age"
@@ -143,13 +143,17 @@ rmspe_bind <- function(predictors_vector, train_df, test_df, method, mode, targe
   
   if (method == "lm"){
     # remove kmin column if method is linear
-    rmspe_result_df <- rmspe_result_df %>% mutate(kmin = "N/A", method = "lm") 
+    rmspe_result_df <- rmspe_result_df %>% 
+      dplyr::mutate(kmin = "N/A", method = "lm") 
+    
   } else if (method == "kknn"){
-    rmspe_result_df <- rmspe_result_df %>% mutate(method = "kknn") 
+    rmspe_result_df <- rmspe_result_df %>% 
+      dplyr::mutate(method = "kknn") 
   }
 
   # fill in output column
-  rmspe_result_df <- rmspe_result_df %>% mutate(outcome = target_variable)
+  rmspe_result_df <- rmspe_result_df %>% 
+    dplyr::mutate(outcome = target_variable)
   
   return (rmspe_result_df)
 }
