@@ -1,8 +1,8 @@
 ---
 title: "Predicting Win Rate of Tennis Players"
 author: Ammar Bagharib, Miles Brodie, Sammy Gulipalli
-output: html_document
-bookdown::html_document2:
+output: 
+  bookdown::html_document2:
       toc: true
 ---
 
@@ -11,31 +11,34 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-```{r}
+```{r load-libraries}
 suppressMessages(source(here::here("R/1_load-libraries.R")))
 ```
 
 
 # Introduction
-## Background
+
 Tennis is a popular, competitive sport played around the world. It is a physically demanding game that requires agility, speed, and accuracy, and can be played in "singles" where there is only one person on each side of the net or "doubles" where there are teams of two. The game can be played on a variety of surfaces such as grass, clay, or hard court (i.e. like a gym floor).
 
 The Association of Tennis Professionals (ATP) organizes tournaments and collects data on players and their matches. The ATP maintains a ranking system for men's singles, doubles, and mixed doubles players, based on their performance in tournaments.
 
 # Our Question
+
 A tennis player's win rate is a key performance indicator that reflects their overall performance on the court. The question we aim to answer is: based on the career statistics of a tennis player, what will be their win rate?
 
 # Our Dataset
+
 To answer this question, we will use the "Game results for Top 500 Players from 2017-2019" dataset. This dataset contains information on singles matches between two players, including player stats (e.g. age, height, rank) and match stats (break points, serve points, double faults, etc.). We will use this data to determine the relationship between a player's stats and their win rate during this time period.
 
 # Methods and Results
+
 To address our research question, we will first transform the dataset of tennis matches into a tidy dataset that only includes player stats. Next, we will explore the relationships between different variables and win_rate to select predictors for our regression models. We will then train both KNN and linear regression models, comparing their performance to find the model type and predictors that give the lowest error. Once we have the best model, we will attempt to predict the win rate for a new player observation.
 
 By analyzing the data, we hope to gain insights into the factors that contribute to a tennis player's win rate and ultimately, assist coaches and players in developing strategies to improve their performance on the court.
 
 # Exploring the Data
 
-```{r, fig.width=13}
+```{r raw-data, fig.width=13}
 atp_df <- data.table::fread(here::here("data/atp2017-2019-1.csv"))
 knitr::kable(head(atp_df), caption = "Raw data table")
 ```
@@ -64,12 +67,13 @@ The stat on rank points is important because players earn a different number of 
 The code below cleans and wrangles the raw data set into tidy form by grouping the observations by player. We mutate some statistics to percentages through ratios of the raw variables. We then obtain each player's "career stats" by joining observations in both winning and losing rounds to the player ID. This forms a data frame with each row representing an individual player.
 
 # Analysis
-```{r}
+
+```{r }
 player_career <- data.table::fread(here::here('data/exploratory-data-analysis-table.csv'))
 
 knitr::kable(
   head(player_career), 
-  caption = "Table 3: Mutated data table used for data processing"
+  caption = "Mutated data table used for data processing"
   )
 ```
 
@@ -88,16 +92,15 @@ exploratory_data_analysis_table <- data.table::fread(
 
 knitr::kable(
   exploratory_data_analysis_table, 
-  caption = "Table 4: Mean Values for each Predictor Variable"
+  caption = "Mean Values for each Predictor Variable"
   )
 ```
 
 The code below produces a visualization which is also very useful in our exploratory data analysis. By using the function ggpairs, we can see the "big picture" of all the relationships between each pair of variables. This visualization helps us pick which variables have a relatively strong relationship with win rate, and thus will be effective in predictions.
 
-```{r}
+```{r, fig.cap="All Predictor Relationships using ggpairs"}
 knitr::include_graphics(here::here("data/player-quantitative-predictors.png"))
 ```
-*All Predictor Relationships using ggpairs*
 
 
 # Model Selection
@@ -111,7 +114,7 @@ The third option is linear regression for individual predictors with win_rate as
 Finally, the last option is linear regression for combined predictors with win_rate as the target. The result is presented by a table with 2 columns.
 
 ## kknn single regression
-```{r}
+```{r kknn-single-regression}
 kknn_single <- data.table::fread(
   here::here(
     'data/kknn-single-regression.csv'
@@ -127,7 +130,7 @@ knitr::kable(
  
  
 ## lm single regression
-```{r}
+```{r lm-single-regression}
 lm_single <- data.table::fread(
   here::here(
     'data/lm-single-regression.csv'
@@ -141,7 +144,7 @@ knitr::kable(
 ```
 
 ## lm multiple regression
-```{r}
+```{r lm-multiple-regression}
 lm_multiple <- data.table::fread(
   here::here(
     'data/lm-multiple-regression.csv'
@@ -156,7 +159,7 @@ knitr::kable(
 
 
 ## kknn multiple regression
-```{r}
+```{r.kknn-multiple-regression}
 kknn_multiple <- data.table::fread(
   here::here(
     'data/kknn-multiple-regression.csv'
@@ -171,7 +174,7 @@ knitr::kable(
 
 
 ## Finding minimum rmspe, and method
-```{r}
+```{r minimum-rspe}
 all_methods <- data.table::fread(
   here::here(
     'data/all-methods.csv'
@@ -188,6 +191,7 @@ knitr::kable(
 
 
 # Using Model 
+
 Following our testing of the many potential models, the one that produces the lowest RMSPE is:
 
 K-NN regression with mean rank points as the predictor.
@@ -196,20 +200,21 @@ Since k = `r kmin`, it shows that we've also managed to avoid underfitting and a
 
 Now, we can try testing the model for some new players. These new players' individual statistics should reflect a predicted win rate that is either on average, below, or above the averaged win rate for all players.
 
-```{r}
+```{r new-analysis}
 best_model_prediction <- data.table::fread(
   here::here(
     'data/best-model-prediction.csv'
     )
   )
 
-sjPlot::tab_df(
+knitr::kable(
   best_model_prediction,
-  title = "New Players Analysis"
+  caption = "New Players Analysis"
 )
 ```
 
 # Discussion 
+
 Overall, we found that a player's "mean rank points" is a good predictor for estimating a player's win rate. Thus, using this variables, we trained a KNN regression model that had an RMSPE of only 7.48. This RMSPE is lower compared to a linear regression model using the same predictors. We tested our model on some newly created players, with varying rank points and first serve win %s. We found that the predicted win rate reflected the stats accordingly.
 
 This result makes sense because a player that has a lot of rank points is likely to win more games. The KNN model outperformed the linear regression model in our analysis, likely because of the non-linear relationship between rank points and win rate. Our model can predict the win rate of a tennis player using only a few statistics, and this could be useful in several ways. For example, it gives a sense of how the player will perform in the future, which could be helpful in scouting or sports betting.
@@ -218,7 +223,7 @@ However, our analysis does have some limitations. For example, we only used only
 
 Future work could explore additional predictors, such as the number of aces or double faults a player makes, the surface they are playing on, or their opponent's ranking. Moreover, it could be useful to analyze the impact of different weight functions on the model's performance and to compare the performance of different machine learning algorithms.
 
-### References 
+# References 
 Keith Prowse Editors. “Love? Ace? Tennis Terminology Explained: Tennis Glossary.” Keith Prowse, 2019, www.keithprowse.co.uk/news-and-blog/2019/01/02/tennis-terminology-explained/
 
 Nag, Utathya. “Tennis Rankings: How They Work and Difference between ATP and Wta Systems.” Tennis Rankings: Everything You Need to Know, International Olympic Committee, 2021, www.olympics.com/en/featured-news/tennis-rankings-atp-wta-men-women-doubles-singles-system-grand-slam-olympics
