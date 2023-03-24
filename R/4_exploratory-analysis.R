@@ -1,5 +1,6 @@
 ############################################
-# This script generates a table in .csv format and a plot in .png format
+# This script generates an exploratory table, player train and player test in .csv format 
+# and a plot in .png format
 
 #load cleaned data
 player_career <- data.table::fread(here::here("data/cleaned_atp2017-2019-1.csv"))
@@ -13,10 +14,9 @@ player_train <- training(player_split)
 player_test <- testing(player_split)
 
 #### NOTE: code below
-# initial creation of test and train csv files used by rmspe_functions.R script
-# csv_path <- paste0(here::here(), "/data")
-# write.csv(player_train, paste(csv_path, "player_train.csv", sep = "/"), row.names = FALSE)
-# write.csv(player_test, paste(csv_path, "player_test.csv", sep = "/"), row.names = FALSE)
+# initial creation of test and train csv 
+data.table::fwrite(player_train, here::here('data/player_train.csv'), row.names = FALSE)
+data.table::fwrite(player_test, here::here('data/player_test.csv'), row.names = FALSE)
 
 #table that has Mean Values for each Predictor Variable
 exploratory_data_analysis_table <- player_train %>%

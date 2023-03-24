@@ -4,8 +4,10 @@
 # it will also generate these tables into a .csv format
 
 #load functions
-source(here::here("R/4_exploratory-analysis.R"))
 source(here::here("R/5_rmspe-functions.R")) 
+
+player_train <- data.table::fread(here::here('data/player_train.csv'))
+player_test <- data.table::fread(here::here('data/player_test.csv'))
 
 ### List of Single Regression Predictors
 # create a list of predictors for the single variable regression
