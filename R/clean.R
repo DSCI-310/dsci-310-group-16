@@ -1,6 +1,5 @@
-#library(readr)
-
-atp_df <- readr::read_csv("data/atp2017-2019-1.csv")
+#load file
+atp_df <- read.csv("data/atp2017-2019-1.csv")
 
 ##  RScript that takes in data set and runs initial cleaning of data
 
@@ -56,4 +55,4 @@ player_career <- player_join %>%
 
 #player_career
 
-readr::write.csv(player_career,'data/cleaned_atp2017-2019-1.csv')
+write.csv(player_career,'data/cleaned_atp2017-2019-1.csv', row.names = FALSE)
