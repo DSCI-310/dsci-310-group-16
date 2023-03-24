@@ -38,7 +38,7 @@ rmspe_results <- function(train_df, test_df, method, mode = "single", target_var
     recipes::step_center(all_predictors())
   
   if (method == "kknn"){
-    tennis_spec <- recipes::nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
+    tennis_spec <- parsnip::nearest_neighbor(weight_func = "rectangular", neighbors = tune()) %>%
       parsnip::set_engine(method) %>% #whether KNN or Linear Regression
       parsnip::set_mode("regression")
   
@@ -58,7 +58,7 @@ rmspe_results <- function(train_df, test_df, method, mode = "single", target_var
     
     kmin <- dplyr::pull(tennis_results, neighbors) #derive k value that gives minimum rmspe value
     
-    tennis_spec <- recipes::nearest_neighbor(weight_func = "rectangular", neighbors = kmin) %>%
+    tennis_spec <- parsnip::nearest_neighbor(weight_func = "rectangular", neighbors = kmin) %>%
       parsnip::set_engine(method) %>%
       parsnip::set_mode("regression")
   }
