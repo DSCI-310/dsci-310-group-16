@@ -159,7 +159,7 @@ knitr::kable(
 
 
 ## kknn multiple regression
-```{r.kknn-multiple-regression}
+```{r kknn-multiple-regression}
 kknn_multiple <- data.table::fread(
   here::here(
     'data/kknn-multiple-regression.csv'
