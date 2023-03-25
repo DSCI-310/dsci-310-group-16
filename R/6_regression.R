@@ -1,5 +1,5 @@
 ############################################
-# This script generates 5 tables of the different regression models we will be working with
+# This script generates tables of the different regression models we will be working with
 # namely, linear and KNN. Each method of regression will undergo both single and multiple regressions
 # it will also generate these tables into a .csv format
 
@@ -92,3 +92,33 @@ all_methods <-
   arrange(rmspe)
 
 data.table::fwrite(all_methods, here::here('data/all-methods.csv'), row.names = FALSE)
+
+#########################################################################################
+## BEST MODEL
+# using best model which is KKNN Single
+tennis_recipe_final <- recipe(win_rate ~ mean_rank_points, data = player_train) %>%
+  step_scale(all_predictors()) %>%
+  step_center(all_predictors())
+
+tennis_model_final <- nearest_neighbor(weight_func = "rectangular", neighbors = 6) %>%
+  set_engine("kknn") %>%
+  set_mode("regression")
+
+tennis_fit_final <- workflow() %>%
+  add_recipe(tennis_recipe_final) %>%
+  add_model(tennis_model_final) %>%
+  fit(data = player_train)
+
+# create three new players (bad_player, player, good_player) with corresponding player statistics
+new_players <- data.frame(
+  name = c("player", "bad_player", "good_player"), 
+  mean_rank_points = c(1400, 700, 2000)
+)
+
+prediction <- predict(tennis_fit_final, new_players) 
+
+best_model_table <- bind_cols(new_players, prediction) %>%
+  rename(predicted_win_rate = .pred)
+
+data.table::fwrite(best_model_table, here::here('data/best-model-prediction.csv'), row.names = FALSE)
+
