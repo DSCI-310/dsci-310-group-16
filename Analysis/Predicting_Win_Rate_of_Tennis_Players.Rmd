@@ -103,10 +103,9 @@ knitr::kable(
 
 By using the function ggpairs, we can see the "big picture" of all the relationships between each pair of variables. This visualization helps us pick which variables have a relatively strong relationship with win rate, and thus will be effective in predictions.
 
-```{r Player Quantitative Predictors png, fig.cap="All Predictor Relationships using ggpairs"}
+```{r, fig.cap="All Predictor Relationships using ggpairs"}
 knitr::include_graphics(here::here("data/player_quantitative_predictors.png"), rel_path = FALSE)
 ```
-
 
 # Model Selection
 
