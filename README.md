@@ -50,7 +50,7 @@ The following are dependencies used within this project, and that which is neces
 | rvest | LATEST |
 | stringr | LATEST |
 | sjPlot | LATEST |
-
+| testthat | LATEST |
    see [Dockerfile](Dockerfile)
    
 ## How to reproduce this project's Analysis. 
