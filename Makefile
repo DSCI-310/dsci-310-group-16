@@ -1,7 +1,7 @@
 # Define variables for file paths
 DATA_PATH = data/atp2017-2019-1.csv
-CLEANED_DATA_PATH = data/atp2017-2019-1.csv
-EDA_PATH = results/Predicting_Win_Rate_of_Tennis_Players.html
+CLEANED_DATA_PATH = data/cleaned_atp2017-2019-1.csv
+EDA_PATH = output/Predicting_Win_Rate_of_Tennis_Players.html
 ANALYSIS_PATH = results/Predicting_Win_Rate_of_Tennis_Players.Rmd
 REPORT_PATH = report.pdf
 

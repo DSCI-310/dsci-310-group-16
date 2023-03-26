@@ -33,7 +33,7 @@ player_ggpairs <- player_train %>%
 
 #save the plot
 ggplot2::ggsave(
-  filename = 'data/player-quantitative-predictors.png', 
+  filename = "data/player_quantitative_predictors.png", 
   plot = player_ggpairs, 
   width = 13, 
   height = 10

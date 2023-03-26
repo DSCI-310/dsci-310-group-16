@@ -11,8 +11,13 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-```{r load-libraries}
+```{r load-libraries, message=FALSE, warning=FALSE, echo=FALSE}
 suppressMessages(source(here::here("R/1_load-libraries.R")))
+suppressMessages(source(here::here("R/2_load.R")))
+suppressMessages(source(here::here("R/3_clean.R")))
+suppressMessages(source(here::here("R/4_exploratory-analysis.R")))
+suppressMessages(source(here::here("R/5_rmspe-functions.R")))
+suppressMessages(source(here::here("R/6_regression.R")))
 ```
 
 
@@ -98,8 +103,8 @@ knitr::kable(
 
 The code below produces a visualization which is also very useful in our exploratory data analysis. By using the function ggpairs, we can see the "big picture" of all the relationships between each pair of variables. This visualization helps us pick which variables have a relatively strong relationship with win rate, and thus will be effective in predictions.
 
-```{r, fig.cap="All Predictor Relationships using ggpairs"}
-knitr::include_graphics(here::here("data/player-quantitative-predictors.png"))
+```{r Player Quantitative Predictors png, fig.cap="All Predictor Relationships using ggpairs"}
+# knitr::include_graphics(here::here("player_quantitative_predictors.png"))
 ```
 
 
