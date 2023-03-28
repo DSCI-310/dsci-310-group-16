@@ -1,34 +1,37 @@
 # Define variables for file paths
-DATA_PATH = data/player_train.csv
-DATA_TEST_PATH = data/player_test.csv
-EDA_PATH = output/Predicting_Win_Rate_of_Tennis_Players.html
-ANALYSIS_PATH = results/Predicting_Win_Rate_of_Tennis_Players.Rmd
-REPORT_PATH = report.pdf
+eda_output = output/player_train.csv output/player_test.csv output/exploratory-data-analysis-table.csv output/player-quantitative-predictors.png
+regression_input = output/player_train.csv output/player_test.csv
+regression_output = output/kknn-single-regression.csv output/lm-single-regression.csv output/lm-multiple-regression.csv output/kknn-multiple-regression.csv output/all-methods.csv output/best-model-prediction.csv
+reports_output: Analysis/Predicting_Win_Rate_of_Tennis_Players.html Analysis/Predicting_Win_Rate_of_Tennis_Players.pdf
 
 # Define all target
 .PHONY: all
-all: report
+all: eda regression report
 
 # Define clean target
 .PHONY: clean
 clean:
-	rm -f $(EDA_PATH) $(ANALYSIS_PATH) $(REPORT_PATH)
+	rm -f data/*.csv output/*.csv output/*.png Analysis/*.html 
 
-# Define target for scripts step
-.PHONY: scripts
-scripts: eda analysis report
+#step 1 load libraries
+data/atp2017-2019-1.csv: R/2_load.R
+	Rscript R/2_load.R 
 
-eda: $(EDA_PATH)
+#step 2 load csv
+data/cleaned_atp2017-2019-1.csv: data/atp2017-2019-1.csv R/3_clean.R
+	Rscript R/3_clean.R
 
-$(EDA_PATH): $(DATA_PATH)
-	Rscript R/5_rmspe-functions.R --input_file $(DATA_PATH) --output_file $(EDA_PATH)
+eda = $(eda_output)
+#step 3 EDA
+eda : data/cleaned_atp2017-2019-1.csv R/4_exploratory-analysis.R
+	Rscript R/4_exploratory-analysis.R --input_file data/cleaned_atp2017-2019-1.csv --output_file $(eda)
 
-analysis: $(ANALYSIS_PATH)
+regression = $(regression_output)
+#step 4 regression 
+regression: $(regression_input) R/6_regression.R
+	Rscript R/6_regression.R --input_file $(regression_input) --output_file $(regression_output)
 
-$(ANALYSIS_PATH): $(DATA_PATH) $(DATA_TEST_PATH)
-	Rscript R/6_generate-model-comparison-tables.R --input_file $(DATA_PATH) --input_file_test $(DATA_TEST_PATH) --output_file $(ANALYSIS_PATH)
-
-report: $(REPORT_PATH)
-
-$(REPORT_PATH): $(EDA_PATH) $(ANALYSIS_PATH)
-	Rscript scripts/create_report.R --eda_file $(EDA_PATH) --analysis_file $(ANALYSIS_PATH) --output_file $(REPORT_PATH)
+report = $(reports_output)
+#step 5 render report
+report: Analysis/Predicting_Win_Rate_of_Tennis_Players.Rmd
+	Rscript -e "rmarkdown::render('Analysis/Predicting_Win_Rate_of_Tennis_Players.Rmd')" --output_file $(reports_output)

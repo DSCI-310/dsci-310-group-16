@@ -1,3 +1,9 @@
+library(data.table)
+suppressMessages(library(here))
+suppressMessages(library(GGally))
+suppressMessages(library(tidymodels))
+
+
 ############################################
 # This script generates an exploratory table, player train and player test in .csv format 
 # and a plot in .png format
@@ -15,8 +21,8 @@ player_test <- testing(player_split)
 
 #### NOTE: code below
 # initial creation of test and train csv 
-data.table::fwrite(player_train, here::here('data/player_train.csv'), row.names = FALSE)
-data.table::fwrite(player_test, here::here('data/player_test.csv'), row.names = FALSE)
+data.table::fwrite(player_train, here::here('output/player_train.csv'), row.names = FALSE)
+data.table::fwrite(player_test, here::here('output/player_test.csv'), row.names = FALSE)
 
 #table that has Mean Values for each Predictor Variable
 exploratory_data_analysis_table <- player_train %>%
@@ -24,7 +30,7 @@ exploratory_data_analysis_table <- player_train %>%
   map_df(mean, na.rm = TRUE)
 
 #generate the table into a csv
-data.table::fwrite(exploratory_data_analysis_table,'data/exploratory-data-analysis-table.csv', row.names = FALSE)
+data.table::fwrite(exploratory_data_analysis_table,'output/exploratory-data-analysis-table.csv', row.names = FALSE)
 
 # select all quantitative predictors and visualize with ggpairs()
 player_ggpairs <- player_train %>%
@@ -33,8 +39,10 @@ player_ggpairs <- player_train %>%
 
 #save the plot
 ggplot2::ggsave(
-  filename = "data/player_quantitative_predictors.png", 
+  filename = 'output/player-quantitative-predictors.png', 
   plot = player_ggpairs, 
   width = 13, 
   height = 10
   )
+
+print("Exploratory Outputs succesfully produced")

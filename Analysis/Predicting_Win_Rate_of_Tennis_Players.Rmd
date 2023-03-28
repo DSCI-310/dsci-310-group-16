@@ -11,13 +11,9 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-```{r load-libraries, message=FALSE, warning=FALSE, echo=FALSE}
-suppressMessages(source(here::here("R/1_load-libraries.R")))
-suppressMessages(source(here::here("R/2_load.R")))
-suppressMessages(source(here::here("R/3_clean.R")))
-suppressMessages(source(here::here("R/4_exploratory-analysis.R")))
-suppressMessages(source(here::here("R/5_rmspe-functions.R")))
-suppressMessages(source(here::here("R/6_regression.R")))
+```{r load-libraries}
+library(data.table)
+library(knitr)
 ```
 
 
@@ -73,8 +69,8 @@ The code below cleans and wrangles the raw data set into tidy form by grouping t
 
 # Analysis
 
-```{r }
-player_career <- data.table::fread(here::here('data/exploratory-data-analysis-table.csv'))
+```{r Analysis}
+player_career <- data.table::fread(here::here('output/exploratory-data-analysis-table.csv'))
 
 knitr::kable(
   head(player_career), 
@@ -88,10 +84,10 @@ We split the player career dataset into testing and training sets by a 75/25 spl
 
 The table below contains the means of each quantitative variable in the training set. This gives an idea of the average statistics for a given player, which is relevant for exploratory data analysis. It tells us what sort of values (or percentages) we can expect for each stat.
 
-```{r}
+```{r EDA_table}
 exploratory_data_analysis_table <- data.table::fread(
   here::here(
-    'data/exploratory-data-analysis-table.csv'
+    'output/exploratory-data-analysis-table.csv'
     )
   )
 
@@ -104,7 +100,7 @@ knitr::kable(
 By using the function ggpairs, we can see the "big picture" of all the relationships between each pair of variables. This visualization helps us pick which variables have a relatively strong relationship with win rate, and thus will be effective in predictions.
 
 ```{r, fig.cap="All Predictor Relationships using ggpairs"}
-knitr::include_graphics(here::here("data/player_quantitative_predictors.png"), rel_path = FALSE)
+knitr::include_graphics(here::here("output/player-quantitative-predictors.png"))
 ```
 
 # Model Selection
@@ -121,7 +117,7 @@ Finally, the last option is linear regression for combined predictors with win_r
 ```{r kknn-single-regression}
 kknn_single <- data.table::fread(
   here::here(
-    'data/kknn-single-regression.csv'
+    'output/kknn-single-regression.csv'
     )
   )
 
@@ -137,7 +133,7 @@ knitr::kable(
 ```{r lm-single-regression}
 lm_single <- data.table::fread(
   here::here(
-    'data/lm-single-regression.csv'
+    'output/lm-single-regression.csv'
     )
   )
 
@@ -151,7 +147,7 @@ knitr::kable(
 ```{r lm-multiple-regression}
 lm_multiple <- data.table::fread(
   here::here(
-    'data/lm-multiple-regression.csv'
+    'output/lm-multiple-regression.csv'
     )
   )
 
@@ -166,7 +162,7 @@ knitr::kable(
 ```{r kknn-multiple-regression}
 kknn_multiple <- data.table::fread(
   here::here(
-    'data/kknn-multiple-regression.csv'
+    'output/kknn-multiple-regression.csv'
     )
   )
 
@@ -181,7 +177,7 @@ knitr::kable(
 ```{r minimum-rspe}
 all_methods <- data.table::fread(
   here::here(
-    'data/all-methods.csv'
+    'output/all-methods.csv'
     )
   )
 
@@ -207,7 +203,7 @@ Now, we can try testing the model for some new players. These new players' indiv
 ```{r new-analysis}
 best_model_prediction <- data.table::fread(
   here::here(
-    'data/best-model-prediction.csv'
+    'output/best-model-prediction.csv'
     )
   )
 
