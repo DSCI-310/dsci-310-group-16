@@ -1,3 +1,6 @@
+library(data.table)
+suppressMessages(library(tidyverse))
+
 #load file
 atp_df <- data.table::fread("data/atp2017-2019-1.csv")
 
