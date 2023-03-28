@@ -26,9 +26,9 @@ RUN Rscript -e "install.packages(c('knitr', 'testthat'))"
 
 WORKDIR /home/rstudio
 
-COPY renv.lock .
-COPY renv renv
-COPY .Rprofile .
+#COPY renv.lock .
+#COPY renv renv
+#COPY .Rprofile .
 ADD Analysis .
 ADD R .
 ADD data .
@@ -38,6 +38,6 @@ COPY Makefile .
 
 RUN ls -alh
 
-USER rstudio
-RUN Rscript -e "renv::repair()"
-USER root
+#USER rstudio
+#RUN Rscript -e "renv::repair()"
+#USER root
