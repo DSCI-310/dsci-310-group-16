@@ -38,6 +38,6 @@ COPY --chown=rstudio:rstudio Makefile .
 
 RUN ls -alh
 
-#USER rstudio
-#RUN Rscript -e "renv::repair()"
-#USER root
+USER rstudio
+RUN make all
+USER root
