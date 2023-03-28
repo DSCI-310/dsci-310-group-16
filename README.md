@@ -5,13 +5,18 @@ DSCI 310 Group 16 project on Predicting Win Rate of Tennis Players done in Jupyt
 ### Table of Contents
 =================
 
-   * [Authors/ Contributors](#authorscontributors)
+* [Predicting Win Rate of Tennis Players](#predicting-win-rate-of-tennis-players)
+      * [Table of Contents](#table-of-contents)
+   * [Authors/Contributors:](#authorscontributors)
    * [Summary of Project](#summary-of-project)
    * [Important Project Rules and Regulations](#important-project-rules-and-regulations)
    * [Detailed Analysis](#detailed-analysis)
    * [Dependencies required](#dependencies-required)
    * [How to reproduce this project's Analysis.](#how-to-reproduce-this-projects-analysis)
-      * [Set Up Your Environment](#set-up-your-environment)
+      * [1. Set Up Your Environment](#1-set-up-your-environment)
+      * [2. Pull down docker image](#2-pull-down-docker-image)
+      * [3. Run docker image](#3-run-docker-image)
+      * [4. Reproduce Analysis](#4-reproduce-analysis)
    * [Licenses](#licenses)
 
 =================
@@ -39,13 +44,13 @@ The following are dependencies used within this project, and that which is neces
 | data.table | 1.12.8   |
 | GGally | 2.1.0   |
 | here | 1.0.1 |
+| kknn | 1.3.1 |
 | tidymodels | 0.1.1 |
 | tidyverse | 1.3.0 |
-| kknn | 1.3.1 |
    see [Dockerfile](Dockerfile)
    
 ## How to reproduce this project's Analysis. 
-### Set Up Your Environment
+### **1. Set Up Your Environment**
 
 - Sign up/ Log in a [Docker](https://hub.docker.com) account.
 
@@ -60,23 +65,23 @@ To keep your fork up to date with changes in this repo, you can use the fetch up
 
 Then, fire up your Terminal on your local machine, and using Docker, follow these steps to reproduce this analysis:
 
-### **1. Pull down docker image**
+### **2. Pull down docker image**
 
 Type in the following command in Terminal.
 ```
 docker pull mjbrodie/dsci-310-group-project:latest
 ```
 
-### **2. Run docker image**
+### **3. Run docker image**
 
 Run the Docker appliation on your local machine. Then, run the following in your terminal. For now, we've set PASSWORD of the rstudio container to be "asdf". You can change it anytime you'd like.
 ```
 docker run -e PASSWORD=asdf -p 8787:8787 mjbrodie/dsci-310-group-project:latest
 ```
 
-### **3. Reproduce Analysis**
+### **4. Reproduce Analysis**
 
-Run your preferred browser, and visit http://localhost:8787/
+Run your preferred browser, (we used Chrome) and visit http://localhost:8787/
 
 Once done, within the terminal in the Rstudio, hit:
 ```
