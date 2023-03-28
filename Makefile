@@ -11,7 +11,7 @@ all: eda regression report
 # Define clean target
 .PHONY: clean
 clean:
-	rm -f data/*.csv output/*.csv data/*.png Analysis/*.html 
+	rm -f data/*.csv output/*.csv output/*.png Analysis/*.html 
 
 #step 1 load libraries
 data/atp2017-2019-1.csv: R/2_load.R
