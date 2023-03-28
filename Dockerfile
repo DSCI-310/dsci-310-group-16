@@ -29,10 +29,10 @@ WORKDIR /home/rstudio
 #COPY renv.lock .
 #COPY renv renv
 #COPY .Rprofile .
-ADD Analysis .
-ADD R .
-ADD data .
-ADD Tests .
+ADD Analysis /home/rstudio/Analysis
+ADD R /home/rstudio/R
+ADD data /home/rstudio/data
+ADD Tests /home/rstudio/Tests
 COPY Makefile .
 
 
