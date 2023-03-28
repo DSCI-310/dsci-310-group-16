@@ -1,4 +1,4 @@
-FROM rocker/rstudio:4.1.3
+FROM --platform=linux/amd64 rocker/rstudio:4.1.3
 
 # Install system dependencies
 RUN apt-get update && \
@@ -21,14 +21,10 @@ RUN Rscript -e "remotes::install_version('tidyverse','1.3.0')"
 RUN Rscript -e "install.packages(c('knitr', 'testthat'))"
 
 # run container in terminal
-# docker run run -e PASSWORD={yourpassword} -p 8787:8787 mjbrodie/dsci-310-group-project:latest
-
+# RUN docker run -e PASSWORD={yourpassword} -p 8787:8787 mjbrodie/dsci-310-group-project:latest
 
 WORKDIR /home/rstudio
 
-#COPY renv.lock .
-#COPY renv renv
-#COPY .Rprofile .
 ADD --chown=rstudio:rstudio Analysis /home/rstudio/Analysis
 ADD --chown=rstudio:rstudio R /home/rstudio/R
 ADD --chown=rstudio:rstudio data /home/rstudio/data
@@ -37,9 +33,6 @@ ADD --chown=rstudio:rstudio output /home/rstudio/output
 
 COPY --chown=rstudio:rstudio Makefile .
 
-
-RUN ls -alh
-
-USER rstudio
-RUN make all
-USER root
+#USER rstudio
+#RUN make all
+#USER root

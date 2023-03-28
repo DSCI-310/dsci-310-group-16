@@ -1,8 +1,9 @@
 library(data.table)
 suppressMessages(library(tidyverse))
+library(here)
 
 #load file
-atp_df <- data.table::fread("data/atp2017-2019-1.csv")
+atp_df <- data.table::fread(here::here("data/atp2017-2019-1.csv"))
 
 ##  RScript that takes in data set and runs initial cleaning of data
 
