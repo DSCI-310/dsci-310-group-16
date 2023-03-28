@@ -5,8 +5,6 @@ DSCI 310 Group 16 project on Predicting Win Rate of Tennis Players done in Jupyt
 ### Table of Contents
 =================
 
-* [Predicting Win Rate of Tennis Players](#predicting-win-rate-of-tennis-players)
-      * [Table of Contents](#table-of-contents)
    * [Authors/Contributors:](#authorscontributors)
    * [Summary of Project](#summary-of-project)
    * [Important Project Rules and Regulations](#important-project-rules-and-regulations)
@@ -47,7 +45,8 @@ The following are dependencies used within this project, and that which is neces
 | kknn | 1.3.1 |
 | tidymodels | 0.1.1 |
 | tidyverse | 1.3.0 |
-   see [Dockerfile](Dockerfile)
+   
+see [Dockerfile](Dockerfile)
    
 ## How to reproduce this project's Analysis. 
 ### **1. Set Up Your Environment**
