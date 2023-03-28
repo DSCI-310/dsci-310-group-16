@@ -35,6 +35,6 @@ ADD --chown=rstudio:rstudio output /home/rstudio/output
 
 COPY --chown=rstudio:rstudio Makefile .
 
-USER rstudio
-RUN make all
-USER root
+#USER rstudio
+#RUN make all
+#USER root
