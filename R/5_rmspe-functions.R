@@ -2,7 +2,7 @@ library(data.table)
 suppressMessages(library(tidyverse))
 suppressMessages(library(here))
 suppressMessages(library(tidymodels))
-
+library(kknn)
 #' This script contains functions that returns the rmspe tables
 #' 
 
