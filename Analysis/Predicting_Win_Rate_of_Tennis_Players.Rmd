@@ -12,7 +12,8 @@ knitr::opts_chunk$set(echo = FALSE)
 
 
 ```{r load-libraries}
-suppressMessages(source(here::here("R/1_load-libraries.R")))
+library(data.table)
+library(knitr)
 ```
 
 
