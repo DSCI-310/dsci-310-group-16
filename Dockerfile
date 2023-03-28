@@ -26,9 +26,14 @@ RUN Rscript -e "install.packages(c('knitr', 'testthat'))"
 
 WORKDIR /home/rstudio
 
-COPY --chown=rstudio:rstudio renv.lock .
-COPY --chown=rstudio:rstudio renv renv
-COPY --chown=rstudio:rstudio .Rprofile .
+COPY renv.lock .
+COPY renv renv
+COPY .Rprofile .
+COPY Analysis/ .
+COPY R/ .
+COPY data/ .
+COPY Tests/ .
+
 
 RUN ls -alh
 
