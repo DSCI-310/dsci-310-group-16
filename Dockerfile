@@ -29,11 +29,11 @@ WORKDIR /home/rstudio
 #COPY renv.lock .
 #COPY renv renv
 #COPY .Rprofile .
-ADD Analysis /home/rstudio/Analysis
-ADD R /home/rstudio/R
-ADD data /home/rstudio/data
-ADD Tests /home/rstudio/Tests
-COPY Makefile .
+ADD --chown=rstudio:rstudio Analysis /home/rstudio/Analysis
+ADD --chown=rstudio:rstudio R /home/rstudio/R
+ADD --chown=rstudio:rstudio data /home/rstudio/data
+ADD --chown=rstudio:rstudio Tests /home/rstudio/Tests
+COPY --chown=rstudio:rstudio Makefile .
 
 
 RUN ls -alh
