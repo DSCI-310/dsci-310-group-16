@@ -6,8 +6,8 @@
 #load functions
 source(here::here("R/5_rmspe-functions.R")) 
 
-player_train <- data.table::fread(here::here('data/player_train.csv'))
-player_test <- data.table::fread(here::here('data/player_test.csv'))
+player_train <- data.table::fread(here::here('output/player_train.csv'))
+player_test <- data.table::fread(here::here('output/player_test.csv'))
 
 ### List of Single Regression Predictors
 # create a list of predictors for the single variable regression
@@ -27,7 +27,7 @@ kknn_single <-
     target_variable = 'win_rate'
   )
 
-data.table::fwrite(kknn_single, here::here('data/kknn-single-regression.csv'), row.names = FALSE)
+data.table::fwrite(kknn_single, here::here('output/kknn-single-regression.csv'), row.names = FALSE)
 
 ### 2. lm single regression
 lm_single <-
@@ -40,7 +40,7 @@ lm_single <-
     target_variable = 'win_rate'
   )
 
-data.table::fwrite(lm_single, here::here('data/lm-single-regression.csv'), row.names = FALSE)
+data.table::fwrite(lm_single, here::here('output/lm-single-regression.csv'), row.names = FALSE)
 
 ### List of Multiple Regression Predictors
 # create a list of predictors for the multiple variable regression
@@ -64,7 +64,7 @@ lm_multiple <-
     target_variable = 'win_rate'
   )
 
-data.table::fwrite(lm_multiple, here::here('data/lm-multiple-regression.csv'), row.names = FALSE)
+data.table::fwrite(lm_multiple, here::here('output/lm-multiple-regression.csv'), row.names = FALSE)
 
 ### 4. kknn multiple regression
 kknn_multiple <-
@@ -77,7 +77,7 @@ kknn_multiple <-
     target_variable = 'win_rate'
   )
 
-data.table::fwrite(kknn_multiple, here::here('data/kknn-multiple-regression.csv'), row.names = FALSE)
+data.table::fwrite(kknn_multiple, here::here('output/kknn-multiple-regression.csv'), row.names = FALSE)
 
 ## combine all methods
 all_methods <-
@@ -91,7 +91,7 @@ all_methods <-
   ) %>% 
   arrange(rmspe)
 
-data.table::fwrite(all_methods, here::here('data/all-methods.csv'), row.names = FALSE)
+data.table::fwrite(all_methods, here::here('output/all-methods.csv'), row.names = FALSE)
 
 #########################################################################################
 ## BEST MODEL
@@ -120,5 +120,6 @@ prediction <- predict(tennis_fit_final, new_players)
 best_model_table <- bind_cols(new_players, prediction) %>%
   rename(predicted_win_rate = .pred)
 
-data.table::fwrite(best_model_table, here::here('data/best-model-prediction.csv'), row.names = FALSE)
+data.table::fwrite(best_model_table, here::here('output/best-model-prediction.csv'), row.names = FALSE)
 
+print("Regression outputs succesfully produced!")

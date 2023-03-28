@@ -1,3 +1,8 @@
+library(data.table)
+suppressMessages(library(tidyverse))
+suppressMessages(library(here))
+suppressMessages(library(tidymodels))
+
 #' This script contains functions that returns the rmspe tables
 #' 
 
@@ -11,19 +16,22 @@ str_collapse <- function(...){
 #' @param  test_df initial test dataframe
 #' @param  method either "lm" or "kknn" - referring to linear or KKNN regression
 #' @param  mode referring to type of regression, default is "single", other values include: "multiple" - 
-#' @param  target_variable  desired outcome of regression. e.g. win_rate . NOTE: input is NOT a string. 
+#' @param  target_variable  desired outcome of regression. e.g. 'win_rate' . NOTE: input is a string. 
 #' @param  ... expects column names as STRINGS e.g. "height", "age". can be entered separately, or as one vector containing strings of predictors
 #' @returns dataframe containing rmspe value, predictors, and if knn was specified, it returns best k value
 #' 
 #' @examples
-#' # rmspe_results(train_df = player_train, test_df = player_test, method = "kknn", mode = "single", target_variable = win_rate, "mean_rank_points")
-#' # rmspe_results(train_df = player_train, test_df = player_test, method = "lm", mode = "single", target_variable = win_rate, "mean_rank_points")
-#' # rmspe_results(train_df = player_train, test_df = player_test, method = "lm", mode = "multiple", target_variable = win_rate, "mean_rank_points", "first_serve_win_pct")
-#' # rmspe_results(train_df = player_train, test_df = player_test, method = "kknn", mode = "multiple", target_variable = win_rate, "mean_rank_points", "first_serve_win_pct")
-#' # rmspe_results(train_df = player_train, test_df = player_test, method = "lm", mode = "multiple", target_variable = win_rate, c("mean_rank_points", "first_serve_win_pct"))
-
+#' # rmspe_results(train_df = player_train, test_df = player_test, method = "kknn", mode = "single", target_variable = 'win_rate', "mean_rank_points")
+#' # rmspe_results(train_df = player_train, test_df = player_test, method = "lm", mode = "single", target_variable = 'win_rate', "mean_rank_points")
+#' # rmspe_results(train_df = player_train, test_df = player_test, method = "lm", mode = "multiple", target_variable = 'win_rate', "mean_rank_points", "first_serve_win_pct")
+#' # rmspe_results(train_df = player_train, test_df = player_test, method = "kknn", mode = "multiple", target_variable = 'win_rate', "mean_rank_points", "first_serve_win_pct")
+#' # rmspe_results(train_df = player_train, test_df = player_test, method = "lm", mode = "multiple", target_variable = 'win_rate', c("mean_rank_points", "first_serve_win_pct"))
 rmspe_results <- function(train_df, test_df, method, mode = "single", target_variable, ...) {
   
+  # train_df = player_train
+  # test_df = player_test
+  # method = "kknn"
+
   #create train data, includes win rate and predictors
   train_data <- train_df %>% dplyr::select({{target_variable}}, ...) 
 
@@ -89,7 +97,8 @@ rmspe_results <- function(train_df, test_df, method, mode = "single", target_var
   
     return (
       data.frame(
-        outcome = deparse(substitute(target_variable)),
+        #outcome = deparse(substitute(target_variable)),
+        outcome = target_variable,
         predictor = predictor_str,
         rmspe = rmspe_val,
         kmin = ifelse(method == "kknn", kmin, "N/A")
@@ -97,8 +106,8 @@ rmspe_results <- function(train_df, test_df, method, mode = "single", target_var
     )
 }
 
-# player_train <- read.csv(here::here("data/player_train.csv"))
-# player_test <- read.csv(here::here("data/player_test.csv"))
+# player_train <- read.csv(here::here("output/player_train.csv"))
+# player_test <- read.csv(here::here("output/player_test.csv"))
 
 #' This function rmspe_bind takes in the following parameters
 #' @param  predictors_vector a LIST of column names as STRINGS e.g. "height", "age"
@@ -123,26 +132,33 @@ rmspe_bind <- function(predictors_vector, train_df, test_df, method, mode, targe
   if (!is.character(target_variable)){
     return ("Please input target variable as a string!")
   }
-  
+  # predictors_vector <- list('height','breakpoint_saved_pct','second_serve_win_pct','first_serve_pct')
+  # train_df <- player_train
+  # test_df <- player_test
+  # method = "kknn"
+  # mode = "single"
+  # target_variable <- 'win_rate'
+
   #intiate dataframe by creating first 
   rmspe_result_df <- rmspe_results(train_df = train_df, test_df = test_df, 
                                    method = method, mode = mode, 
-                                   target_variable = glue::glue(target_variable), #glue converts the string into the name of the column
+                                   target_variable = target_variable, #glue converts the string into the name of the column
                                    predictors_vector[[1]])
 
   #instantiate for loop, using the remaining items in predictors_vector
   for (i in predictors_vector[-1]){
+    #print(i)
     rmspe_result_df <- data.table::rbindlist(list(
       rmspe_result_df,
       rmspe_results(train_df = train_df, test_df = test_df, 
                     method = method, mode = mode, 
-                    target_variable = glue::glue(target_variable), i)
+                    target_variable = target_variable, i)
       )
     )
   }
   
   if (method == "lm"){
-    # remove kmin column if method is linear
+    # assign NA to kmin column if method is linear
     rmspe_result_df <- rmspe_result_df %>% 
       dplyr::mutate(kmin = "N/A", method = "lm") 
     
@@ -158,7 +174,6 @@ rmspe_bind <- function(predictors_vector, train_df, test_df, method, mode, targe
   return (rmspe_result_df)
 }
 
- 
 # TEST: invalid target_variable
 # invalid_str <- rmspe_bind(
 #   predictors_vector = multiple_predictors,
