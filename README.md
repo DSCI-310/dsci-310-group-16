@@ -37,21 +37,11 @@ The following are dependencies used within this project, and that which is neces
 | ------------ | ------- |
 | R | 4.1.3   |
 | data.table | 1.12.8   |
-| DBI | 1.1.0 |
-| GGally       | 2.1.0   |
-| glue | 1.6.2 |
+| GGally | 2.1.0   |
 | here | 1.0.1 |
 | tidymodels | 0.1.1 |
 | tidyverse | 1.3.0 |
-| dbplyr | LATEST |
-| knitr | LATEST |
-| readr | LATEST |
-| repr | LATEST |
-| rvest | LATEST |
-| stringr | LATEST |
-| sjPlot | LATEST |
-| testthat | LATEST |
-| bookdown | LATEST |
+| kknn | 1.3.1 |
    see [Dockerfile](Dockerfile)
    
 ## How to reproduce this project's Analysis. 
@@ -70,19 +60,29 @@ To keep your fork up to date with changes in this repo, you can use the fetch up
 
 Then, fire up your Terminal on your local machine, and using Docker, follow these steps to reproduce this analysis:
 
-**1. Pull down docker image**
+### **1. Pull down docker image**
 
 Type in the following command in Terminal.
 ```
 docker pull mjbrodie/dsci-310-group-project:latest
 ```
 
-**2. Run docker image**
+### **2. Run docker image**
 
-Run the following in your terminal
+Run the Docker appliation on your local machine. Then, run the following in your terminal. For now, we've set PASSWORD of the rstudio container to be "asdf". You can change it anytime you'd like.
 ```
-docker run -e PASSWORD={yourpassword} -p 8787:8787 mjbrodie/dsci-310-group-project:latest
+docker run -e PASSWORD=asdf -p 8787:8787 mjbrodie/dsci-310-group-project:latest
 ```
+
+### **3. Reproduce Analysis**
+
+Run your preferred browser, and visit http://localhost:8787/
+
+Once done, within the terminal in the Rstudio, hit:
+```
+make all
+```
+
    
 ## Licenses
-- MIT license for project analysis (completed in a jupyter notebook)
+- MIT license for project analysis (completed in Rmarkdown)
