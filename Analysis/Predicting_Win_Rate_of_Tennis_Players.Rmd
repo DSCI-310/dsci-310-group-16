@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```{r load-libraries}
 library(data.table)
 library(knitr)
-library(rmarkdown)
+#library(rmarkdown)
 ```
 
 
