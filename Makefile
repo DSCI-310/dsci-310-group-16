@@ -11,8 +11,11 @@ all: eda regression report
 # Define clean target
 .PHONY: clean
 clean:
-	rm -f data/*.csv data/*.png output/*.csv output/*.png Analysis/*.html 
-	
+	mv data/atp2017-2019-1.csv R/ #temporarily move initial data to R folder
+	rm -f data/*.csv #clear all csv files within data folder
+	mv R/atp2017-2019-1.csv data/
+	rm -f output/* Analysis/*.html 
+
 #step 1 load csv
 data/atp2017-2019-1.csv: R/2_load.R
 	Rscript R/2_load.R 
