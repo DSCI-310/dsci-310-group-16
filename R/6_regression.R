@@ -1,3 +1,4 @@
+#Author: Ammar Bagharib
 ############################################
 # This script generates tables of the different regression models we will be working with
 # namely, linear and KNN. Each method of regression will undergo both single and multiple regressions
