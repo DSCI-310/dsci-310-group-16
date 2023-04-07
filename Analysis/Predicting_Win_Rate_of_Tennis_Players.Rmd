@@ -11,10 +11,12 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-```{r load-libraries}
+```{r load-libraries, message=FALSE, warning=FALSE, echo=FALSE}
 library(data.table)
 library(knitr)
-#library(rmarkdown)
+library(bookdown)
+library(devtools)
+library(markdown)
 ```
 
 
@@ -93,9 +95,8 @@ exploratory_data_analysis_table <- data.table::fread(
   )
 
 knitr::kable(
-  exploratory_data_analysis_table, 
-  caption = "Mean Values for each Predictor Variable"
-  )
+exploratory_data_analysis_table, caption = "Mean Values for each Predictor Variable"
+)
 ```
 
 By using the function ggpairs, we can see the "big picture" of all the relationships between each pair of variables. This visualization helps us pick which variables have a relatively strong relationship with win rate, and thus will be effective in predictions.
