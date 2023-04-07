@@ -8,6 +8,8 @@ RUN apt-get update && \
         libxml2-dev \
         libpq-dev && \
     rm -rf /var/lib/apt/lists/*
+    
+RUN apt-get install -y libglpk-dev
 
 # Install specific R packages
 RUN Rscript -e "install.packages('remotes')"
