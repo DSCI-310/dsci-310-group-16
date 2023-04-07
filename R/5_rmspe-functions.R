@@ -63,8 +63,8 @@ create_recipe <- function(target_df, target_variable){
 #' @export
 #'
 #' @examples
-#' df <- target_df(mtcars, c('gear', 'am', 'vs')]
-#' model_recipe <- create_recipe(df, "gear")
+#' df <- target_df(mtcars, target_variable='gear', 'am', "vs")
+#' model_recipe <- create_recipe(df, 'gear')
 #' create_spec_kmin(df, model_recipe, method="lm", target_variable="gear")
 #' create_spec_kmin(df, model_recipe, method="kknn", target_variable="gear")
 #' create_spec_kmin(df, model_recipe, method="kknn", kmin=4, target_variable="gear")
@@ -136,17 +136,18 @@ get_list_item <- function(list_object, n){
 #' Create Model fit
 #'
 #' @param model_recipe a model recipe based on the predictors and target variable
-#' @param model_spec a model specification for tennis project that will eventually be fitted onto train/test data
+#' @param model_spec a model specification that will eventually be fitted onto train/test data
 #' @param df a dataframe that preferably consists ONLY the columns relevant to the entire regression model i.e, target variable and predictors 
 #'
 #' @return model fit
 #' @export
 #'
-#' @examples
-#' df <- target_train(mtcars, 'win_rate', c("mean_rank_points", "first_serve_win_pct"))
-#' x_recipe <- create_recipe(df, target_variable - "win_rate")
-#' x_spec <- create_spec_kmin(df, "lm", "win_rate")
-#' create_fit(x_recipe, x_spec, df)
+#' @example
+#' df <- target_df(mtcars, 'gear', c("am", "vs"))
+#' x_recipe <- create_recipe(df, target_variable="gear")
+#' x_spec_list <- create_spec_kmin(df, model_recipe=x_recipe, method="lm", target_variable="gear")
+#' x_spec <- get_list_item(x_spec_list, n=1)
+#' class(create_fit(x_recipe, x_spec, df))
 #' 
 create_fit <- function(model_recipe, model_spec, df){
   model_fit <- workflows::workflow() %>%
@@ -158,6 +159,23 @@ create_fit <- function(model_recipe, model_spec, df){
 }
 
 
+#' Create prediction model
+#'
+#' @param target_test_df a dataframe which consists ONLY the columns relevant to the entire regression model i.e, target variable and predictors 
+#' @param model_fit a "workflow" class object preferably generated from 'create_fit' function
+#'
+#' @return a dataframe with predicted values appended to target_test_df
+#' @export
+#'
+#' @example
+#' train_df <- target_df(mtcars[1:16, ], 'gear', c("am", "vs"))
+#' test_df <- target_df(mtcars[17:32, ], 'gear', c("am", "vs"))
+#' x_recipe <- create_recipe(train_df, target_variable="gear")
+#' x_spec_list <- create_spec_kmin(train_df, model_recipe=x_recipe, method="lm", target_variable="gear")
+#' x_spec <- get_list_item(x_spec_list, n=1) 
+#' x_fit <- create_fit(x_recipe, x_spec, train_df)
+#' create_model_prediction(test_df, x_fit )
+#' 
 create_model_prediction <- function(target_test_df, model_fit) {
   prediction_model <- model_fit %>%
     predict(target_test_df) %>%
@@ -166,9 +184,27 @@ create_model_prediction <- function(target_test_df, model_fit) {
   return (prediction_model)
 }
 
+#' Pull metric from a prediction model
+#'
+#' @param prediction_model a dataframe with predicted values appended to target_test_df
+#' @param metric metric to assess performance of prediction model
+#' @param target_variable target variable of prediction model
+#'
+#' @return metric
+#' @export
+#'
+#' @example
+#' train_df <- target_df(mtcars[1:16, ], 'gear', c("am", "vs"))
+#' test_df <- target_df(mtcars[17:32, ], 'gear', c("am", "vs"))
+#' x_recipe <- create_recipe(train_df, target_variable="gear")
+#' x_spec_list <- create_spec_kmin(train_df, model_recipe=x_recipe, method="lm", target_variable="gear")
+#' x_spec <- get_list_item(x_spec_list, n=1) 
+#' x_fit <- create_fit(x_recipe, x_spec, train_df)
+#' prediction_model <- create_model_prediction(test_df, x_fit )
+#' get_metric(prediction_model, "rmse", "gear")
 get_metric <- function(prediction_model, metric, target_variable){
   metric_result <- prediction_model %>%
-    metrics(truth=target_variable, estimate=.pred) %>%
+    metrics(truth=target_variable, estimate=.pred) %>% #rmse, rsq and mae metrics generated
     dplyr::filter(.metric==metric) %>%
     dplyr::select(.estimate) %>%
     dplyr::pull()
@@ -179,18 +215,21 @@ get_metric <- function(prediction_model, metric, target_variable){
 
 #' Collapse string of arguments and join then by '+'
 #' 
-#' @param ... takes in any amount of arguments
+#' @param str_vector takes in a vector item(s) of class str
 #' @returns returns input parameters combined as a string, separated by '+'
 #' @export
 #' 
 #' @examples
-#' str_collapse()
+#' str_collapse("my name")
+#' str_collapse(c("my name", "is", "jake"))
+#' str_collapse(c("my name", 2, "boy"))
+#' str_collapse(c(3, 2, "boy"))
 #' 
-str_collapse <- function(...){
-  if(length(...) == 1){
-    return(...)
-  }
-  return(paste(c(...), collapse=" + "))
+str_collapse <- function(str_vector){
+ if (!all(is.character(str_vector))){
+   stop("at least one item in str_vector should be of class 'character'")
+ }
+  return(paste(str_vector, collapse=" + "))
 }
 
 #' RMSPE results dataframe function
@@ -206,14 +245,14 @@ str_collapse <- function(...){
 #' @export
 #' 
 #' @examples
-#' single_train <- target_df(player_train, 'win_rate', 'mean_rank_points')
-#' single_test <- target_df(player_test, 'win_rate', 'mean_rank_points')
-#' create_metric_df(single_train, single_test, method='lm', target_variable='win_rate', predictors_vector='mean_rank_points')
+#' single_train_df <- target_df(mtcars[1:16, ], 'gear', "am")
+#' single_test_df <- target_df(mtcars[17:32, ], 'gear', "am")
+#' create_metric_df(single_train_df, single_test_df, , method='kknn', kmin=4, target_variable='gear', predictors_vector="am")
 #' 
-#' multiple_train <- target_df(player_train, 'win_rate', "mean_rank_points", "first_serve_win_pct")
-#' multiple_test <- target_df(player_test, 'win_rate', "mean_rank_points", "first_serve_win_pct")
-#' create_metric_df(multiple_train, multiple_test, , method='kknn', kmin=4, target_variable='win_rate', predictors_vector=c("mean_rank_points", "first_serve_win_pct"))
-
+#' multiple_train_df <- target_df(mtcars[1:16, ], 'gear', c("am", "vs"))
+#' multiple_test_df <- target_df(mtcars[17:32, ], 'gear', c("am", "vs"))
+#' create_metric_df(multiple_train_df, multiple_test_df, , method='kknn', kmin=4, target_variable='gear', predictors_vector=c("am", "vs"))
+#' 
 create_metric_df <- function(train_df, test_df, metric="rmse", method, kmin="NA", target_variable, predictors_vector){
   
   #create train data, includes win rate and predictors
