@@ -9,7 +9,7 @@ RUN apt-get update && \
         libpq-dev && \
     rm -rf /var/lib/apt/lists/*
     
-RUN apt-get install -y libglpk-dev
+RUN apt-get update && apt-get -yq install libglpk-dev
 
 # Install specific R packages
 RUN Rscript -e "install.packages('remotes')"
