@@ -30,14 +30,14 @@ RUN Rscript -e "install.packages(c('bookdown', 'knitr'))"
 
 WORKDIR /home/rstudio
 
-# ADD --chown=rstudio:rstudio Analysis /home/rstudio/Analysis
-# ADD --chown=rstudio:rstudio R /home/rstudio/R
-# ADD --chown=rstudio:rstudio data /home/rstudio/data
-# ADD --chown=rstudio:rstudio Tests /home/rstudio/Tests
-# ADD --chown=rstudio:rstudio output /home/rstudio/output
-# ADD --chown=rstudio:rstudio Packages /home/rstudio/Packages
+ADD --chown=rstudio:rstudio Analysis /home/rstudio/Analysis
+ADD --chown=rstudio:rstudio R /home/rstudio/R
+ADD --chown=rstudio:rstudio data /home/rstudio/data
+ADD --chown=rstudio:rstudio Tests /home/rstudio/Tests
+ADD --chown=rstudio:rstudio output /home/rstudio/output
+ADD --chown=rstudio:rstudio Packages /home/rstudio/Packages
 
-# COPY --chown=rstudio:rstudio Makefile .
+COPY --chown=rstudio:rstudio Makefile .
 
 #USER rstudio
 #RUN make all #can't run because of kknn package which stops "regression" in Makefile
