@@ -28,7 +28,7 @@ RUN Rscript -e "install.packages(c('bookdown', 'knitr'))"
 # RUN docker run -e PASSWORD={yourpassword} -p 8787:8787 mjbrodie/dsci-310-group-project:latest
 
 
-# WORKDIR /home/rstudio
+WORKDIR /home/rstudio
 
 # ADD --chown=rstudio:rstudio Analysis /home/rstudio/Analysis
 # ADD --chown=rstudio:rstudio R /home/rstudio/R
