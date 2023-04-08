@@ -22,7 +22,7 @@ RUN Rscript -e "remotes::install_version('tidyverse','1.3.0')"
 
 
 # Install remaining R packages
-RUN Rscript -e "install.packages(c('bookdown', 'knitr'))"
+RUN Rscript -e "install.packages(c('bookdown', 'knitr', 'devtools', 'markdown'))"
 
 # run container in terminal
 # RUN docker run -e PASSWORD={yourpassword} -p 8787:8787 mjbrodie/dsci-310-group-project:latest
