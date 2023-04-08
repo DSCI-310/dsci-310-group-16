@@ -6,8 +6,8 @@ RUN apt-get update && \
     libssl-dev \
     libcurl4-openssl-dev \
     libxml2-dev \
-    libpq-dev && \
-    libxt6 \
+    libpq-dev \
+    libxt6 && \
     rm -rf /var/lib/apt/lists/*
 
 
