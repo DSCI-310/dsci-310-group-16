@@ -8,6 +8,7 @@ RUN apt-get update && \
         libxml2-dev \
         libpq-dev && \
     rm -rf /var/lib/apt/lists/*
+    -y --no-install-recommends libxt6
     
 RUN apt-get update && apt-get -yq install libglpk-dev
 
