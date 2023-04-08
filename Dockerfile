@@ -7,7 +7,9 @@ RUN apt-get update && \
         libcurl4-openssl-dev \
         libxml2-dev \
         libpq-dev && \
+        libxt6 \
     rm -rf /var/lib/apt/lists/*
+  
     
 RUN apt-get update && apt-get -yq install libglpk-dev
 
