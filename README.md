@@ -76,14 +76,14 @@ docker pull mjbrodie/dsci-310-group-project:latest
 
 Run the Docker appliation on your local machine. Then, run the following in your terminal. For now, we've set PASSWORD of the rstudio container to be "asdf". You can change it anytime you'd like.
 ```
-docker run -e PASSWORD=asdf -p 8787:8787 mjbrodie/dsci-310-group-project:latest
+docker run -p 8787:8787 -e DISABLE_AUTH=true mjbrodie/dsci-310-group-project:latest
 ```
 
 ### **4. Reproduce Analysis**
 
-Run your preferred browser, (we used Chrome) and visit http://localhost:8787/
+Run your preferred browser, (we used Chrome) and visit http://localhost:8787
 
-Once done, within the terminal in the Rstudio, hit:
+Once done, within the terminal in the Rstudio, this is what you should see:
 ```
 make all
 ```
