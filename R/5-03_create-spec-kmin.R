@@ -34,13 +34,13 @@
 #' 
 
 #' 
-create_spec_kmin <- function(df, model_recipe, method, kmin='NA', metric, target_variable){
+create_spec_kmin <- function(df, model_recipe, method, kmin='NA', metric, target_variable, weight_func="rectangular", mode="regression"){
   if (method=="kknn"){ #if kknn regression is used
     if (kmin=='NA'){
       #tune model spec to find optimal kmin when kmin not specified
-      model_spec <- parsnip::nearest_neighbor(weight_func="rectangular", neighbors=tune()) %>%
+      model_spec <- parsnip::nearest_neighbor(weight_func=weight_func, neighbors=tune()) %>%
         parsnip::set_engine(method) %>% #whether KNN or Linear Regression
-        parsnip::set_mode("regression")
+        parsnip::set_mode(mode)
       
       model_workflow <- workflows::workflow() %>%
         workflows::add_recipe(model_recipe) %>%
@@ -62,14 +62,14 @@ create_spec_kmin <- function(df, model_recipe, method, kmin='NA', metric, target
       stop("invalid kmin specified")
     }
     #create tennis model specification if kmin is specified
-    model_spec <- parsnip::nearest_neighbor(weight_func="rectangular", neighbors=kmin) %>%
+    model_spec <- parsnip::nearest_neighbor(weight_func=weight_func, neighbors=kmin) %>%
       parsnip::set_engine(method) %>%
-      parsnip::set_mode("regression")
+      parsnip::set_mode(mode)
     
   } else if (method=="lm"){ #if linear regression is used
     model_spec <- parsnip::linear_reg() %>%
       parsnip::set_engine(method) %>%
-      parsnip::set_mode("regression")
+      parsnip::set_mode(mode)
     
   } else {
     stop("Invalid method specified")
