@@ -26,9 +26,6 @@ RUN Rscript -e "remotes::install_version('tidyverse','1.3.0')"
 # Install remaining R packages
 RUN Rscript -e "install.packages(c('bookdown', 'knitr', 'devtools', 'markdown'))"
 
-# run container in terminal
-# RUN docker run -e PASSWORD={yourpassword} -p 8787:8787 mjbrodie/dsci-310-group-project:latest
-
 
 WORKDIR /home/rstudio
 
@@ -37,9 +34,4 @@ ADD --chown=rstudio:rstudio R /home/rstudio/R
 ADD --chown=rstudio:rstudio data /home/rstudio/data
 ADD --chown=rstudio:rstudio Tests /home/rstudio/Tests
 ADD --chown=rstudio:rstudio output /home/rstudio/output
-
-COPY --chown=rstudio:rstudio Makefile .
-
-#USER rstudio
-#RUN make all #can't run because of kknn package which stops "regression" in Makefile
-#USER root
+COPY --chown=rstudio:rstudio Makefile /home/rstudio
