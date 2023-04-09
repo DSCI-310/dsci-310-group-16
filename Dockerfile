@@ -1,5 +1,8 @@
 FROM --platform=linux/amd64 rocker/rstudio:4.1.3
 
+# set environment variable to disable authentication
+ENV DISABLE_AUTH=true
+
 # Install system dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
