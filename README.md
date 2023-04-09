@@ -74,19 +74,46 @@ docker pull mjbrodie/dsci-310-group-project:latest
 
 ### **3. Run docker image**
 
-Run the Docker appliation on your local machine. Then, run the following in your terminal. For now, we've set PASSWORD of the rstudio container to be "asdf". You can change it anytime you'd like.
+Run the Docker appliation on your local machine. Then, run the following in your terminal.
 ```
-docker run -p 8787:8787 -e DISABLE_AUTH=true mjbrodie/dsci-310-group-project:latest
+docker run --platform linux/amd64 -p 8787:8787 -e DISABLE_AUTH=true mjbrodie/dsci-310-group-project:latest
 ```
 
 ### **4. Reproduce Analysis**
 
 Run your preferred browser, (we used Chrome) and visit http://localhost:8787
 
-Once done, within the terminal in the Rstudio, this is what you should see:
+Once done, within the terminal in the Rstudio, you would see a virtual Rstudio, without any project opened as follows:
+
+<img src="https://github.com/mjbrodie/dsci-310-group-16/blob/main/instructions/Instructions-1.png" width="911" height="500" />
+
+Now, we need to open a new project. Click on the dropdown list and you should see the following:
+
+<img src="https://github.com/mjbrodie/dsci-310-group-16/blob/main/instructions/Instructions-2.png" width="911" height="410" />
+
+Hit `Open Project`, after which, the following prompt will appear:
+
+<img src="https://github.com/mjbrodie/dsci-310-group-16/blob/main/instructions/Instructions-3.png" width="911" height="760" />
+
+Click on `dsci-310-group-16.Rproj` and hit the `Open` button. Your Rstudio should now reflect the following project:
+
+<img src="https://github.com/mjbrodie/dsci-310-group-16/blob/main/instructions/Instructions-4.png" width="911" height="374" />
+
+We're almost getting there! Now, navigate to `Terminal` as found on the left side of your Rstudio page as seen here:
+
+<img src="https://github.com/mjbrodie/dsci-310-group-16/blob/main/instructions/Instructions-5.png" width="911" height="541" />
+
+Finally, run the following code in the Terminal:
 ```
 make all
 ```
+It should take max 10 minutes to run, be patient! Once done, you should see the following message:
+
+
+> Output created: Predicting_Win_Rate_of_Tennis_Players.html
+
+
+There'll be many new files created, you can explore them within the `data` and `Analysis` folder. All the best!
 
    
 ## Licenses
