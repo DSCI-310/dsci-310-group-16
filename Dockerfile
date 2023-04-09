@@ -34,4 +34,4 @@ ADD --chown=rstudio:rstudio R /home/rstudio/R
 ADD --chown=rstudio:rstudio data /home/rstudio/data
 ADD --chown=rstudio:rstudio Tests /home/rstudio/Tests
 ADD --chown=rstudio:rstudio output /home/rstudio/output
-COPY --chown=rstudio:rstudio Makefile /home/rstudio
+ADD --chown=rstudio:rstudio Makefile /home/rstudio
