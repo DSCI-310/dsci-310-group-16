@@ -34,7 +34,7 @@
 #' 
 
 #' 
-create_spec_kmin <- function(df, model_recipe, method, kmin='NA', metric, target_variable){
+create_spec_kmin <- function(df, model_recipe, method, kmin='NA', metric, target_variable, weight_func="rectangular", mode="regression"){
   if (method=="kknn"){ #if kknn regression is used
     if (kmin=='NA'){
       #tune model spec to find optimal kmin when kmin not specified
