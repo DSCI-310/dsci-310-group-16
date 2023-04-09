@@ -1,6 +1,6 @@
-#' Create model specification with optional kmin tuning
+#' @title Create model specification with optional kmin tuning
 #'
-#' This function creates a model specification for either linear regression or k-nearest neighbor regression, with an optional kmin tuning for the latter. If kmin is not specified, the function performs a grid search to find the optimal k value that gives the minimum root mean squared error (RMSE) on a 5-fold cross-validation of the training data.
+#' @description This function creates a model specification for either linear regression or k-nearest neighbor regression, with an optional kmin tuning for the latter. If kmin is not specified, the function performs a grid search to find the optimal k value that gives the minimum root mean squared error (RMSE) on a 5-fold cross-validation of the training data.
 #'
 #'
 #' @param df A data frame containing the training data.
@@ -9,12 +9,14 @@
 #' @param metric A character string specifying the performance metric to calculate ("rmse", "rsq", or "mae")
 #' @param kmin A numeric value specifying the minimum number of neighbors to be considered when performing k-nearest neighbor regression. If set to "NA", the function performs a grid search to find the optimal k value. Default is "NA".
 #' @param target_variable A character string indicating the name of the target variable to be predicted.
-#'
+#' @param weight_func A character string indicating the weight function used for the k-nearest neighbor regression. Default is "rectangular".
+#' @param mode A character string indicating the type of regression task. Default is "regression".
+
 #' @return A list containing the model specification and the kmin value (if applicable).
 #' @export
-#' 
-#' @include 5.02-create_recipe.R
-#' 
+#'
+#' @include 02_create-recipe.R
+#'
 #' @examples
 #' train_df <- mtcars[1:16, ]
 #' target_df <- target_df(train_df, "gear")
@@ -26,14 +28,12 @@
 #' @importFrom recipes recipe update_role step_scale step_center all_predictors
 #' @importFrom parsnip nearest_neighbor set_engine set_mode linear_reg
 #' @importFrom workflows workflow add_recipe add_model
-#' @importFrom tune tune_grid collect_metrics filter pull
+#' @importFrom tune tune_grid collect_metrics
 #' @importFrom tibble tibble
 #' @importFrom rsample vfold_cv
-#' @importFrom stats seq
-#' @importFrom utils stop
-#' 
+#'
 
-#' 
+#'
 create_spec_kmin <- function(df, model_recipe, method, kmin='NA', metric, target_variable, weight_func="rectangular", mode="regression"){
   if (method=="kknn"){ #if kknn regression is used
     if (kmin=='NA'){
