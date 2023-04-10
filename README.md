@@ -59,7 +59,7 @@ see [Dockerfile](Dockerfile)
 Fork this project's repository on GitHub and then clone the fork to your local machine. For more details on forking see the [GitHub
 Documentation](https://help.github.com/en/articles/fork-a-repo). Type in the following command in your Terminal.
 ```
-$ git clone https://github.com/mjbrodie/dsci-310-group-16
+git clone https://github.com/mjbrodie/dsci-310-group-16
 ```
 To keep your fork up to date with changes in this repo, you can use the fetch upstream button on GitHub. More details regarding fork syncing, e.g., syncing from your terminal instead of directly on Github can be found [**here**](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork). 
 
