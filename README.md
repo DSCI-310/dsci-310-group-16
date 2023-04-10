@@ -59,7 +59,7 @@ see [Dockerfile](Dockerfile)
 Fork this project's repository on GitHub and then clone the fork to your local machine. For more details on forking see the [GitHub
 Documentation](https://help.github.com/en/articles/fork-a-repo). Type in the following command in your Terminal.
 ```
-$ git clone https://github.com/mjbrodie/dsci-310-group-16
+git clone https://github.com/mjbrodie/dsci-310-group-16
 ```
 To keep your fork up to date with changes in this repo, you can use the fetch upstream button on GitHub. More details regarding fork syncing, e.g., syncing from your terminal instead of directly on Github can be found [**here**](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork). 
 
@@ -83,30 +83,13 @@ docker run --platform linux/amd64 -p 8787:8787 -e DISABLE_AUTH=true mjbrodie/dsc
 
 Run your preferred browser, (we used Chrome) and visit http://localhost:8787
 
-Once done, within the terminal in the Rstudio, you would see a virtual Rstudio, without any project opened as follows:
-
-<img src="https://github.com/mjbrodie/dsci-310-group-16/blob/main/instructions/Instructions-1.png" width="911" height="500" />
-
-Now, we need to open a new project. Click on the dropdown list and you should see the following:
-
-<img src="https://github.com/mjbrodie/dsci-310-group-16/blob/main/instructions/Instructions-2.png" width="911" height="410" />
-
-Hit `Open Project`, after which, the following prompt will appear:
-
-<img src="https://github.com/mjbrodie/dsci-310-group-16/blob/main/instructions/Instructions-3.png" width="911" height="760" />
-
-Click on `dsci-310-group-16.Rproj` and hit the `Open` button. Your Rstudio should now reflect the following project:
-
-<img src="https://github.com/mjbrodie/dsci-310-group-16/blob/main/instructions/Instructions-4.png" width="911" height="374" />
-
-We're almost getting there! Now, navigate to `Terminal` as found on the left side of your Rstudio page as seen here:
-
-<img src="https://github.com/mjbrodie/dsci-310-group-16/blob/main/instructions/Instructions-5.png" width="911" height="541" />
-
-Finally, run the following code in the Terminal:
+Once done, within the terminal in the Rstudio, run:
 ```
 make all
 ```
+
+<img src="https://github.com/mjbrodie/dsci-310-group-16/blob/main/instructions/Instructions-5.png" width="911" height="541" />
+
 It should take max 10 minutes to run, be patient! Once done, you should see the following message:
 
 
