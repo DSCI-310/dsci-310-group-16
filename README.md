@@ -96,8 +96,14 @@ It should take max 10 minutes to run, be patient! Once done, you should see the 
 > Output created: Predicting_Win_Rate_of_Tennis_Players.html
 
 
-There'll be many new files created, you can explore them within the `data` and `Analysis` folder. All the best!
+There'll be many new files created, you can explore them within the `data` and `Analysis` folder on your Rstudio environment.
 
+If you'd like to restart your workflow, within the terminal in the Rstudio, run:
+```
+make clean
+```
+
+All the best!!
    
 ## Licenses
 - MIT license for project analysis (completed in Rmarkdown)
