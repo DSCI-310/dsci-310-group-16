@@ -4,8 +4,9 @@
 # namely, linear and KNN. Each method of regression will undergo both single and multiple regressions
 # it will also generate these tables into a .csv format
 
-#load functions
-source(here::here("R/5_rmspe-functions.R")) 
+library(lmkknn.metrics)
+library(data.table)
+library(dplyr)
 
 player_train <- as.data.frame(data.table::fread(here::here('output/player_train.csv')))
 player_test <- as.data.frame(data.table::fread(here::here('output/player_test.csv')))
@@ -19,7 +20,7 @@ single_predictors <- list(
 
 ### 1. kknn single regression
 kknn_single <-
-  metric_bind(
+  lmkknn.metrics::metric_bind(
     train_df = player_train, 
     test_df = player_test,
     method = "kknn", 
@@ -32,7 +33,7 @@ data.table::fwrite(kknn_single, here::here('output/kknn-single-regression.csv'),
 
 ### 2. lm single regression
 lm_single <-
-  metric_bind(
+  lmkknn.metrics::metric_bind(
     model_list = single_predictors, 
     train_df = player_train, 
     test_df = player_test,
@@ -56,7 +57,7 @@ multiple_predictors <- list(
 
 ### 3. lm multiple regression
 lm_multiple <-
-  metric_bind(
+  lmkknn.metrics::metric_bind(
     model_list = multiple_predictors, 
     train_df = player_train, 
     test_df = player_test,
@@ -69,7 +70,7 @@ data.table::fwrite(lm_multiple, here::here('output/lm-multiple-regression.csv'),
 
 ### 4. kknn multiple regression
 kknn_multiple <-
-  metric_bind(
+  lmkknn.metrics::metric_bind(
     model_list = multiple_predictors, 
     train_df = player_train, 
     test_df = player_test,
@@ -115,19 +116,19 @@ final_test_df <- data.frame(
 )
 
 #create model recipe
-final_recipe <- create_recipe(final_train_df, target_variable="win_rate")
+final_recipe <- lmkknn.metrics::create_recipe(final_train_df, target_variable="win_rate")
 
 #create model specification
-final_spec <- create_spec_kmin(final_train_df, model_recipe=final_recipe,
+final_spec <- lmkknn.metrics::create_spec_kmin(final_train_df, model_recipe=final_recipe,
                                     method="kknn", kmin = best_model_kmin, 
                                     metric = "rmse", target_variable="win_rate") %>%
-  get_list_item(., n=1) #extract model specification
+  lmkknn.metrics::get_list_item(., n=1) #extract model specification
 
 #create model fit
-final_fit <- create_fit(final_recipe, final_spec, final_train_df)
+final_fit <- lmkknn.metrics::create_fit(final_recipe, final_spec, final_train_df)
 
 #create final predicition model
-final_model <- create_model_prediction(final_test_df, final_fit )
+final_model <- lmkknn.metrics::create_model_prediction(final_test_df, final_fit )
 
 #rename prediction column
 final_model <- final_model %>% 
