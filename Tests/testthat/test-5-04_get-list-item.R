@@ -1,3 +1,5 @@
+library(testthat)
+
 # Load function
 get_list_item <- function(list_object, n){
   if (!is.numeric(n) | n < 1){
