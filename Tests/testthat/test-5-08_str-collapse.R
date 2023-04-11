@@ -1,3 +1,5 @@
+library(testthat)
+
 Test case 1: All items in str_vector are characters
 test_that("str_collapse returns a string with items of class 'character' separated by '+", {
 str_vector <- c("my name", "is", "jake")
