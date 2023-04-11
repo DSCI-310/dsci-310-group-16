@@ -24,7 +24,7 @@ RUN Rscript -e "remotes::install_version('here', '1.0.1')"
 RUN Rscript -e "remotes::install_version('kknn','1.3.1')"
 RUN Rscript -e "remotes::install_version('tidymodels','0.1.1')"
 RUN Rscript -e "remotes::install_version('tidyverse','1.3.0')"
-
+RUN Rscript -e "remotes::install_github('DSCI-310/dsci-310-group-16-pkg@1.0.0', force = TRUE)"
 
 # Install remaining R packages
 RUN Rscript -e "install.packages(c('bookdown', 'knitr', 'devtools', 'markdown'))"
